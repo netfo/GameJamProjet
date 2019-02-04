@@ -1,3 +1,1 @@
-# projet
-# GameJamProjet
 # GameJamProjet
