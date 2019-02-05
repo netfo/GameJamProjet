@@ -11,7 +11,7 @@ mainclock= pygame.time.Clock()
 #On nomme la page
 pygame.display.set_caption("Space-Adventurer-You Win")
 
-#On crée la page avec ses dimensions 
+#On crée la page avec ses dimensions
 fenetre = pygame.display.set_mode((600, 640))
 
 #On crée le fond
@@ -30,7 +30,7 @@ pygame.mixer.music.set_volume(0.3)
 boucle=True
 
 pygame.display.flip()
- 
+
 
 while boucle:
     #Si on ferme la fenetre, le programme s'arrete de s'executer
@@ -38,10 +38,10 @@ while boucle:
         if event.type == pygame.QUIT:
             boulce=False
             pygame.quit()
-            
-                
+
+
         #Gestion de la  musique avec les touches
-        if event.type == KEYDOWN: 
+        if event.type == KEYDOWN:
             #Cliquer sur ESPACE pour fermer l'écran
             if event.key == K_SPACE:
                pygame.quit()
