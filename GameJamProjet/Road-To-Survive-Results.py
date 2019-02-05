@@ -41,19 +41,19 @@ myfont = pygame.font.SysFont("Carlito", 30)
 exit = myfont.render("Score: ",1, white)
 fenetre.blit(exit, (250, 320))
 
-# #Image1
-# x=100
-# y=430
-# image = pygame.image.load("img/rejouer.png").convert()
-# image= pygame.transform.scale(image, (150,100))
-# fenetre.blit(image, (x,y))
-#
-# #Image2
-# x2=350
-# y2=430
-# image2= pygame.image.load("img/quitter.png").convert()
-# image2= pygame.transform.scale(image2, (150, 100))
-# fenetre.blit(image2, (x2,y2))
+#Image1
+x=100
+y=430
+image = pygame.image.load("img/rejouer.png").convert()
+image= pygame.transform.scale(image, (150,100))
+fenetre.blit(image, (x,y))
+
+#Image2
+x2=350
+y2=430
+image2= pygame.image.load("img/quitter.png").convert()
+image2= pygame.transform.scale(image2, (150, 100))
+fenetre.blit(image2, (x2,y2))
 
 #On crée la musique de fond
 # pygame.mixer.init()
@@ -66,33 +66,6 @@ fenetre.blit(exit, (250, 320))
 boucle=True
 
 pygame.display.flip()
-
-def text_objects(text, font):
-    font = pygame.font.SysFont("Carlito",20)
-    textSurface = font.render(text, True,  (255, 0, 0))
-    return textSurface, textSurface.get_rect()
-
-def button(msg,x,y,w,h,ic,ac,action=None):
-    mouse = pygame.mouse.get_pos()
-    click = pygame.mouse.get_pressed()
-    print(click)
-    if x+w > mouse[0] > x and y+h > mouse[1] > y:
-        pygame.draw.rect(pygame.Surface([200,50]), ac,(x,y,w,h))
-
-        if click[0] == 1 and action != None:
-            action()
-    else:
-        pygame.draw.rect(pygame.Surface([200,50]), ic,(x,y,w,h))
-
-    smallText = pygame.font.SysFont("Carlito",20)
-    textSurf, textRect = text_objects(msg, smallText)
-    textRect.center = ( (x+(w/2)), (y+(h/2)) )
-    fenetre.blit(textSurf, textRect)
-
-
-
-button("Quitter",300,450,30,50,None,navyblue,None)
-
 
 while boucle:
     #Si on ferme la fenetre, le programme s'arrete de s'executer
@@ -112,3 +85,5 @@ while boucle:
             if fond.get_rect().collidepoint(pygame.mouse.get_pos()):
                 boucle=0
                 pygame.quit()
+        if event.type == MOUSEBUTTONDOWN and event.button==1 and (100<event.pos[0]<250) and (330<event.pos[1]<480):
+                import RoadToSurviveAccueil
