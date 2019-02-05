@@ -27,7 +27,7 @@ class Level:
                     if self.get_at(1, 0) != (0, 0, 0, 255):
                         r=True
                     Platform((self.x*32, self.y*32), tile, l, r)
-                    
+
                 if color == (0, 19, 127, 255):
                     l=r=False
                     tile = "1"
@@ -37,8 +37,8 @@ class Level:
                         l=True
                     if self.get_at(1, 0) != (0, 19, 127, 255):
                         r=True
-                        
-                    Grass((self.x*32, self.y*32), tile, l, r)    
+
+                    Grass((self.x*32, self.y*32), tile, l, r)
 
 
                 if color == (109, 127, 63, 255):
@@ -51,7 +51,7 @@ class Level:
                     if self.get_at(1, 0) != (109, 127, 63, 255):
                         r=True
 
-                    Brick((self.x*32, self.y*32), tile, l, r)    
+                    Brick((self.x*32, self.y*32), tile, l, r)
 
                 if color == (48, 48, 48, 255):
                     l=r=False
@@ -64,7 +64,7 @@ class Level:
                         r=True
 
                     Gray((self.x*32, self.y*32), tile, l, r)
-                    
+
                 if color == (255, 200, 0, 255):
                     AirPlatform((self.x*32, self.y*32))
                 if color == (127, 51, 0, 255):
@@ -85,24 +85,10 @@ class Level:
                     Castle((self.x*32, self.y*22))
                 if color == (255, 233, 127, 255):
                     Hill((self.x*32, self.y*29))
-                if color == (0, 0, 255, 255):
-                    Baddie((self.x*32 + 2, self.y*32 + 4), "monster")
-                if color == (0, 255, 255, 255):
-                    Baddie((self.x*32 + 1, self.y*32 + 2), "slub")
-                if color == (255, 0, 255, 255):
-                    Baddie((self.x*32 - 1, self.y*32 - 12), "squidge")
-                if color == (76, 255, 0, 255):
-                    Cannon((self.x*32 + 1, self.y*29.3 + 4), "cannon") # 1
-                if color == (63, 73, 127, 255):
-                    Cannon((self.x*32 + 1, self.y*24.5  + 4), "cannonbig") # 1
-                if color == (255, 127, 182, 255):
-                    Cannon((self.x*32 + 1, self.y*32 + 2), "smallcannon") # 1
-                if color == (127, 0, 110, 255):
-                    Flower((self.x*32.5, self.y*28.8 + 2), "flower")
                 if color == (255, 0, 0, 255):
                     MovingPlatform((self.x*32, self.y*32))
                 if color == (82, 127, 63, 255):
-                    MovingPlatformtwo((self.x*32, self.y*32))  
+                    MovingPlatformtwo((self.x*32, self.y*32))
                 if color == (255, 255, 0, 255):
                     Coin((self.x*32 + 4, self.y*32 + 4))
                 if color == (0, 255, 0, 255):
@@ -121,10 +107,6 @@ class Level:
                     Tree1((self.x*32, self.y*27))
                 if color == (255, 0, 220, 255):
                     Cloud2((self.x*32, self.y*32))
-                if color == (72, 0, 255, 255):
-                    Rose((self.x*32.23, self.y*27.8 + 2), "flower2")
-                if color ==(255, 106, 0, 255):
-                    Baddie((self.x*32 + 2, self.y*32 + 4), "monsterred")
                 if color ==((38, 127, 0, 255)):
                     Tree2((self.x*32, self.y*29.7))
                 if color ==((0, 127, 127, 255)):
@@ -145,14 +127,14 @@ class Level:
                     Bridge((self.x*32, self.y*32))
                 if color == ((127, 116, 63, 255)):
                     Chain((self.x*32, self.y*32))
-                    
-       
-                                       
+
+
+
     def get_at(self, dx, dy):
         try:
             return self.level.get_at((self.x+dx, self.y+dy))
         except:
             pass
-            
+
     def get_size(self):
         return [self.level.get_size()[0]*32, self.level.get_size()[1]*32]

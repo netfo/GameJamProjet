@@ -137,7 +137,7 @@ class Player(Collidable):
 
     def jump(self):
         if not self.jumping and not self.shooting and self.still_timer <= 0:
-            self.jump_speed = -9.4
+            self.jump_speed = -7.5
             self.jumping = True
             self.jump_sound.play()
             self.move(0, -4)
