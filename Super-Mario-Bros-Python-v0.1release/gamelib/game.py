@@ -20,7 +20,7 @@ class Camera(object):
         self.rect = pygame.display.get_surface().get_rect()
         self.world = Rect(0, 0, width, 480)
         self.rect.center = self.player.rect.center
-        
+
     def update(self):
         if self.player.rect.centerx > self.rect.centerx+64:
             self.rect.centerx = self.player.rect.centerx-64
@@ -74,7 +74,7 @@ class Game(object):
         self.bosses = pygame.sprite.OrderedUpdates()
         self.platformqs = pygame.sprite.OrderedUpdates()
         self.mushroomgreens = pygame.sprite.OrderedUpdates()
-        
+
         Player.right_images = [load_image("mario1.png"), load_image("mario2.png"), load_image("mario3.png"), load_image("mario4.png"), load_image("mario1.png"), load_image("mario5.png")]
         Platform.images = {"platform-top.png": load_image("platform-top.png"), "platform-middle.png": load_image("platform-top.png")}
         Grass.images = {"grass-1.png": load_image("grass-1.png"), "grass-middle.png": load_image("grass-middle.png")}
@@ -116,7 +116,7 @@ class Game(object):
         Cloud2.image = load_image("dobbelclouds.png")
         Platform_Brick.image = load_image("platform-brick.png")
         Boss.left_images = [load_image("bowser1.png"), load_image("bowser2.png"), load_image("bowser3.png")]
-        Flower.left_images1 = [load_image("flower%d.png" % i) for i in range(1, 2)] 
+        Flower.left_images1 = [load_image("flower%d.png" % i) for i in range(1, 2)]
         MushroomGreen.image = load_image("mushroom-green.png")
         MushroomGreendie.images = [load_image("exp2-%d.png" % i) for i in range(1, 4)]
         PipeBig.image = load_image("pipe-big.png")
@@ -127,7 +127,7 @@ class Game(object):
         Grasstexture.image = load_image("grass-texture.png")
         Grass1.image = load_image("grass-1.png")
         Grass2.image = load_image("grass-2.png")
-        GrassSprite.image = load_image("grass-texturesprite.png") 
+        GrassSprite.image = load_image("grass-texturesprite.png")
         Wall.image = load_image("wall-1.png")
         Lava.image = load_image("lava.png")
         Chain.image = load_image("chain.png")
@@ -208,20 +208,21 @@ class Game(object):
         if self.lvl == 5:
             if continuing:
                 self.music = "castle.ogg"
-                self.bg = load_image("background-1.png")      
+                self.bg = load_image("background-1.png")
         if not continuing:
             cutscene(self.screen,
-                     ['Note: This is only a test',
-                      'version of the game',
-                      'So there is only 4 levels.'])
+                     ['Note: Utilisez les fleches',
+                      'directionnelles pour vous deplacez',
+                      'Appuyez sur Z pour sauter',
+                      'Appuyez sur R pour tirer'])
             stop_music()
-        
+
         self.intro_level()
         self.main_loop()
-        
+
     def end(self):
         self.running = 0
-        
+
     def intro_level(self):
         stop_music()
         self.screen.fill((0, 0, 0))
@@ -233,7 +234,7 @@ class Game(object):
         pygame.display.flip()
         pygame.time.wait(2500)
         play_music(self.music)
-             
+
     def next_level(self):
         self.time = 400
         self.booming = True
@@ -250,14 +251,14 @@ class Game(object):
             self.intro_level()
         except:
             if self.lives == 0: # Fix =)
-                self.lives += 1   
+                self.lives += 1
             cutscene(self.screen,
             ['This was only a test version',
              'press enter to end'])
-             
-    
+
+
             self.end()
-                            
+
     def redo_level(self):
         self.booming = False
         self.boom_timer = 0
@@ -273,7 +274,7 @@ class Game(object):
             #play_music("maintheme.ogg")
             if self.lvl == 5:
                 play_music("castle.ogg")
-        
+
     def show_death(self):
         ren = self.font.render("YOU DIED", 1, (255, 255, 255))
         self.screen.blit(ren, (320-ren.get_width()/2, 235))
@@ -284,14 +285,14 @@ class Game(object):
         play_music("goal.ogg")
         pygame.time.wait(7500)
         pygame.display.flip()
-        
+
     def gameover_screen(self):
         stop_music()
         play_music("gameover.ogg")
         cutscene(self.screen, ["Game Over"])
         self.end()
 
-      
+
     def clear_sprites(self):
         for s in self.sprites:
             pygame.sprite.Sprite.kill(s)
@@ -311,8 +312,8 @@ class Game(object):
             self.clock.tick(60)
             self.camera.update()
             for s in self.sprites:
-                s.update()    
-            
+                s.update()
+
             for b in self.bombs:
                 if self.player.rect.colliderect(b.rect):
                     self.show_end()
@@ -326,8 +327,8 @@ class Game(object):
                     s.kill()
             if self.booming and self.boom_timer <= 0:
                 self.redo_level()
-                
-                
+
+
             for p in self.platforms:
                 p.update()
             self.player.collide(self.springs)
@@ -335,17 +336,17 @@ class Game(object):
 
             for g in self.grasss:
                 g.update()
-            self.player.collide(self.grasss)    
-    
+            self.player.collide(self.grasss)
+
             for b in self.bricks:
                 b.update()
-            self.player.collide(self.bricks)    
+            self.player.collide(self.bricks)
 
 
             for l in self.grays:
                 l.update()
-            self.player.collide(self.grays)    
-        
+            self.player.collide(self.grays)
+
             for m in self.mushroomgreens:
                 if self.player.rect.colliderect(m.rect):
                     m.kill()
@@ -353,14 +354,14 @@ class Game(object):
                     self.score += 5000
                     self.lives += 1
                     self.up_sound.play()
-                                    
+
             for c in self.coins:
                 if self.player.rect.colliderect(c.rect):
                     c.kill()
                     self.coin_sound.play()
                     CoinDie(c.rect.center)
                     self.score += 50
- 
+
             for p in self.movingplatformtwos:
                 p.collide(self.players)
                 for p2 in self.platforms:
@@ -372,15 +373,15 @@ class Game(object):
                 for p2 in self.platforms:
                     if p != p2:
                         p.collide_with_platforms(p2)
-        
+
             for b in self.flowers:
                 if self.player.rect.colliderect(b.rect):
-                    self.player.hit()                
-        
+                    self.player.hit()
+
             for f in self.firebowsers:
                 if self.player.rect.colliderect(f.rect):
                     self.player.hit()
-#________________________________________________________________________          
+#________________________________________________________________________
 
             for b in self.baddies:                               # |
                 if b.rect.colliderect(self.camera.rect):         # V
@@ -390,7 +391,7 @@ class Game(object):
                 if b.type != "squidge":
                     b.collide(self.nomoveplatforms)              # Big problem here somewhere,
                     b.collide(self.springs)                      # The enemies is making the game laggy.
-                    b.collide(self.cannons)                      # Main problem would be b.collide(self.nomoveplatforms) 
+                    b.collide(self.cannons)                      # Main problem would be b.collide(self.nomoveplatforms)
                                                                  # Makes the enemies collide with main platform and for some reason,
                                                                  # that causes alot of problems.
             for c in self.cannons:
@@ -414,17 +415,17 @@ class Game(object):
                     if c.type != "smallcannon":
                         c.collide(self.nomoveplatforms)
                         c.collide(self.springs)
-                        c.collide(self.cannons)    
+                        c.collide(self.cannons)
 #_______________________________________________________________________
-                        
+
             for b in self.flowers:
                 if self.player.rect.colliderect(b.rect):
                     self.player.hit()
-        
+
             for r in self.roses:
                 if self.player.rect.colliderect(r.rect):
                     self.player.hit()
-             
+
             for b in self.bosses:
                 if self.player.rect.colliderect(b.rect) and not b.dead:
                     self.player.hit()
@@ -436,20 +437,20 @@ class Game(object):
                         s.kill()
                     if not random.randrange(4):
                         self.boom_sound.play()
-                        
+
             if self.player.rect.right > self.camera.world.w:
                 if not self.bombs and self.lvl < 30:
                     self.next_level()
                 else:
                     self.player.rect.right = self.camera.world.w
-        
+
             if self.lvl == 5:
                 self.bg = load_image("background-1.png")
                 self.music = "castle.ogg"
             else:
                 if self.lvl == 6:
                     self.bg = load_image("background-2.png")
-                    
+
             for b in self.baddies:
                 if self.player.rect.colliderect(b.rect):
                     if self.player.jump_speed > 0 and \
@@ -482,7 +483,7 @@ class Game(object):
                 self.time -= 0.060
             if self.time <= 0:
                 self.player.hit()
-                                              
+
             for e in pygame.event.get():
                 if e.type == QUIT:
                     sys.exit()
@@ -490,7 +491,7 @@ class Game(object):
                     if e.key == K_ESCAPE:
                         self.end()
                     if e.key == K_z:
-                        self.player.jump()     
+                        self.player.jump()
             if not self.running:
                 return
             self.screen.blit(self.bg, ((-self.camera.rect.x/1)%640, 0))

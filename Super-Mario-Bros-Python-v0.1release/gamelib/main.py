@@ -8,6 +8,6 @@ def main():
     pygame.init()
     pygame.mouse.set_visible(0)
     pygame.display.set_icon(pygame.image.load(data.filepath("bowser1.gif")))
-    pygame.display.set_caption("Super Mario Bros (DEMO)")
+    pygame.display.set_caption("Road to survive")
     screen = pygame.display.set_mode((640, 480))
     menu.Menu(screen)

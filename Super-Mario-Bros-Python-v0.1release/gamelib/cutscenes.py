@@ -39,6 +39,6 @@ def cutscene(screen, text):
         screen.fill((0, 0, 0))
         screen.blit(image, (0, 240-image.get_height()/2))
         screen.blit(black, (0, 0))
-        ren = font.render("Press Enter to continue", 1, (255, 255, 255))
+        ren = font.render("Appuyez sur Entrer pour continuer", 1, (255, 255, 255))
         screen.blit(ren, (320-ren.get_width()/2, 460))
         pygame.display.flip()
