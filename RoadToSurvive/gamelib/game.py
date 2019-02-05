@@ -36,15 +36,6 @@ class Camera(object):
             if s.rect.colliderect(self.rect):
                 surf.blit(s.image, RelRect(s, self))
 
-def save_level(lvl):
-    open(filepath("saves/prog.sav"), "w").write(str(lvl))
-
-def get_saved_level():
-    try:
-        return int(open(filepath("saves/prog.sav")).read())
-    except:
-        open(filepath("saves/prog.sav"),  "w").write(str(1))
-        return 1
 
 class Game(object):
 
