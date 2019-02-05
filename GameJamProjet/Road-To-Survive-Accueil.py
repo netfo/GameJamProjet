@@ -9,7 +9,7 @@ pygame.init()
 #On nomme la page
 pygame.display.set_caption("ROADtoSURVIVE Accueil")
 
-#Création de la page
+#Création de la page 
 fenetre = pygame.display.set_mode((700, 500))
 
 #Chargement et collage du fond
