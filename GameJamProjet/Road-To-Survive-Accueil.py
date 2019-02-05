@@ -13,7 +13,7 @@ pygame.display.set_caption("ROADtoSURVIVE Accueil")
 fenetre = pygame.display.set_mode((700, 500))
 
 #Chargement et collage du fond
-fond = pygame.image.load("fond.png").convert()
+fond = pygame.image.load("img/fond.png").convert()
 fond= pygame.transform.scale(fond, (700, 620))
 fenetre.blit(fond, (0,0))
 
@@ -27,28 +27,18 @@ myfont = pygame.font.SysFont("Carlito", 40)
 label = myfont.render("ROADtoSURVIVE",1, white)
 fenetre.blit(label, (220, 100))
 
-#Start
-myfont = pygame.font.SysFont("Carlito", 30)
-start = myfont.render("Start",1, white)
-fenetre.blit(start, (140, 280))
-
-#Exit
-myfont = pygame.font.SysFont("Carlito", 30)
-exit = myfont.render("Exit",1, white)
-fenetre.blit(exit, (550, 280))
-
 #Image1
 x=100
 y=330
-image = pygame.image.load("images.jpeg").convert()
-image= pygame.transform.scale(image, (150,150))
+image = pygame.image.load("img/jouer.png").convert()
+image= pygame.transform.scale(image, (150,100))
 fenetre.blit(image, (x,y))
 
 #Image2
-x2=500
+x2=450
 y2=330
-image2= pygame.image.load("index.jpeg").convert()
-image2= pygame.transform.scale(image2, (150, 150))
+image2= pygame.image.load("img/quitter.png").convert()
+image2= pygame.transform.scale(image2, (150, 100))
 fenetre.blit(image2, (x2,y2))
 
 #Sons
