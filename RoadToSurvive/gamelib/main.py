@@ -1,7 +1,7 @@
 import pygame, os
 from pygame.locals import *
 
-import menu, data
+import data, menu
 def main():
     os.environ["SDL_VIDEO_CENTERED"] = "1"
     #pygame.mixer.pre_init(44100, -16, 2, 4096)
