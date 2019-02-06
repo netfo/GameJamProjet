@@ -503,11 +503,7 @@ class Game(object):
                 return
 
     def draw_stats(self):
-        for i in range(1):
-            self.screen.blit(self.heart2, (16 + i*34, 16))
-        for i in range(self.player.hp):
-            self.screen.blit(self.heart1, (16 + i*34, 16))
-        self.screen.blit(self.heroimg, (313, 16))
+
         lives = self.lives
         if lives < 0:
             lives = 0
