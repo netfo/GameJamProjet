@@ -191,7 +191,7 @@ class Game(object):
         self.baddie_sound = load_sound("jump2.ogg")
         self.coin_sound = load_sound("coin.ogg")
         self.up_sound = load_sound("1up.ogg")
-        self.time = 400
+        self.time = 180
         self.running = 1
         self.booming = True
         self.boom_timer = 0
@@ -227,7 +227,7 @@ class Game(object):
         play_music(self.music)
 
     def next_level(self):
-        self.time = 400
+        self.time = 180
         self.booming = True
         self.boom_timer = 0
         try:
@@ -253,7 +253,7 @@ class Game(object):
     def redo_level(self):
         self.booming = False
         self.boom_timer = 0
-        self.time = 400
+        self.time = 180
         if self.running:
             self.clear_sprites()
             self.level = Level(self.lvl)
@@ -469,7 +469,7 @@ class Game(object):
 
 
             if self.player.alive():
-                self.time -= 0.560
+                self.time -= 0.001
             if self.time <= 0:
                 self.player.hit()
 
