@@ -15,10 +15,10 @@ def Credit(screen):
     cutscene(screen, ["Credits",
     "",
     "BULOT Andy : Developpeur",
-    "BOISSIN Rowin : Crediteur",
+    "BOISSIN Rowin : Developpeur",
     "FERNANDEZ Thibaud : Chef de groupe",
     "FOURRIER Quentin : Developpeur",
-    "SEBAG Samuel : Dictateur",
+    "SEBAG Samuel : Developpeur",
     ""])
 def source(screen):
     cutscene(screen, ["Source",
