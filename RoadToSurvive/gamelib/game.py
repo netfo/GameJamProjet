@@ -95,6 +95,7 @@ class Game(object):
         CannonShotbig.image = load_image("cannonbullet1.png")
         CannonShotsmall.image = load_image("cannonbullet1.png")
         Spring.images = [load_image("spring1.png"), load_image("spring2.png")]
+        Spring2.images = [load_image("spring3.png"), load_image("spring4.png")]
         AirPlatform.image = load_image("platform-air.png")
         PlatformQ.images = [load_image("platform-q%s.png" % i) for i in range (1, 4)]
         Pipe.image = load_image("pipe.png")
@@ -144,6 +145,7 @@ class Game(object):
         CannonShotbig.groups = self.sprites, self.shots
         CannonShotsmall.groups = self.sprites, self.shots
         Spring.groups = self.sprites, self.springs
+        Spring2.groups = self.sprites, self.springs
         AirPlatform.groups = self.sprites, self.platforms, self.nomoveplatforms
         Pipe.groups = self.sprites, self.platforms, self.nomoveplatforms
         PlatformQ.groups = self.sprites, self.platformqs, self.nomoveplatforms, self.platforms
@@ -173,39 +175,38 @@ class Game(object):
         Bridge.groups = self.sprites, self.platforms, self.nomoveplatforms
         Chain.groups = self.sprites,
 
-        self.highscore = 0
+        # self.highscore = 0
         self.score = 0
-        self.lives = 1
+        # self.lives = 1
         self.lvl   = 1
         if continuing:
-            self.lvl = get_saved_level()
+            self.lvl = 1
         self.player = Player((0, 0))
         self.clock = pygame.time.Clock()
         self.bg = load_image("background-2.png")
         self.level = Level(self.lvl)
         self.camera = Camera(self.player, self.level.get_size()[0])
         self.font = pygame.font.Font(filepath("fonts/font.ttf"), 16)
-        self.heart1 = load_image("mario1.png")
-        self.heart2 = load_image("mario-life2.png")
-        self.heroimg = load_image("mario5.png")
-        self.baddie_sound = load_sound("jump2.ogg")
+        # self.heart1 = load_image("mario1.png")
+        # self.heart2 = load_image("mario-life2.png")
+        # self.heroimg = load_image("mario5.png")
+        # self.baddie_sound = load_sound("jump2.ogg")
         self.coin_sound = load_sound("coin.ogg")
         self.up_sound = load_sound("1up.ogg")
         self.time = 180
         self.running = 1
-        self.booming = True
-        self.boom_timer = 0
+        # self.booming = True
+        # self.boom_timer = 0
         self.music = "maintheme.ogg"
-        if self.lvl == 5:
-            if continuing:
-                self.music = "castle.ogg"
-                self.bg = load_image("background-1.png")
+        # if self.lvl == 5:
+        #     if continuing:
+        #         self.music = "castle.ogg"
+        #         self.bg = load_image("background-1.png")
         if not continuing:
             cutscene(self.screen,
                      ['Note: Utilisez les fleches',
                       'directionnelles pour vous deplacez',
-                      'Appuyez sur Z pour sauter',
-                      'Appuyez sur R pour tirer'])
+                      'Appuyez sur Z pour sauter'])
             stop_music()
 
         self.intro_level()
@@ -218,10 +219,10 @@ class Game(object):
         stop_music()
         self.screen.fill((0, 0, 0))
         self.draw_stats()
-        ren = self.font.render("World 1-%d" % self.lvl, 1, (255, 255, 255))
-        self.screen.blit(ren, (320-ren.get_width()/2, 230))
-        ren = self.font.render("Lives x%d" % self.lives, 1, (255, 255, 255))
-        self.screen.blit(ren, (320-ren.get_width()/2, 255))
+        # ren = self.font.render("World 1-%d" % self.lvl, 1, (255, 255, 255))
+        # self.screen.blit(ren, (320-ren.get_width()/2, 230))
+        # ren = self.font.render("Lives x%d" % self.lives, 1, (255, 255, 255))
+        # self.screen.blit(ren, (320-ren.get_width()/2, 255))
         pygame.display.flip()
         pygame.time.wait(2500)
         play_music(self.music)
@@ -252,7 +253,7 @@ class Game(object):
 
     def redo_level(self):
         self.booming = False
-        self.boom_timer = 0
+        # self.boom_timer = 0
         self.time = 180
         if self.running:
             self.clear_sprites()
@@ -297,7 +298,7 @@ class Game(object):
             if not self.running:
                 return
 
-            self.boom_timer -= 1
+            # self.boom_timer -= 1
 
             self.clock.tick(60)
             self.camera.update()
@@ -491,7 +492,7 @@ class Game(object):
                 pygame.draw.rect(self.screen, (255, 0, 0), (170, 64, b.hp*60, 32))
                 pygame.draw.rect(self.screen, (0, 0, 0), (170, 64, 300, 32), 1)
             if not self.player.alive() and not self.playerdying:
-                if self.lives < 1:
+                if self.lives <= 1:
                     self.score_screen()
                 else:
                     self.show_death()
@@ -509,6 +510,6 @@ class Game(object):
         ren = self.font.render("Score: %05d" % self.score, 1, (255, 255, 255))
         self.screen.blit(ren, (624-ren.get_width(), 16))
         ren1 = self.font.render("Time: %d" % self.time, 1, (255, 255, 255))
-        ren2 = self.font.render("Time: %d" % self.time, 1, Color("#ffffff"))
+        # ren2 = self.font.render("Time: %d" % self.time, 1, Color("#ffffff"))
         self.screen.blit(ren1, (485, 60))
-        self.screen.blit(ren2, (485, 60))
+        # self.screen.blit(ren2, (485, 60))

@@ -103,6 +103,8 @@ class Level:
                     Bomb((self.x*31.9, self.y*10))
                 if color == (0, 200, 0, 255):
                     Spring((self.x*32, self.y*32))
+                if color == (0, 220, 0, 255):
+                    Spring2((self.x*32, self.y*32))
                 if color == (200, 0, 0, 255):
                     Boss((self.x*32, self.y*32 + 31))
                 if color == (0, 127, 70, 255):
