@@ -45,26 +45,26 @@ class Game(object):
         self.sprites = pygame.sprite.OrderedUpdates()
         self.players = pygame.sprite.OrderedUpdates()
         self.platforms = pygame.sprite.OrderedUpdates()
-        self.grasss = pygame.sprite.OrderedUpdates()
+        # self.grasss = pygame.sprite.OrderedUpdates()
         self.grays = pygame.sprite.OrderedUpdates()
         self.bricks = pygame.sprite.OrderedUpdates()
         self.movingplatforms = pygame.sprite.OrderedUpdates()
         self.movingplatformtwos = pygame.sprite.OrderedUpdates()
-        self.baddies = pygame.sprite.OrderedUpdates()
-        self.cannons = pygame.sprite.OrderedUpdates()
-        self.flowers = pygame.sprite.OrderedUpdates()
-        self.firebowsers = pygame.sprite.OrderedUpdates()
-        self.roses = pygame.sprite.OrderedUpdates()
+        # self.baddies = pygame.sprite.OrderedUpdates()
+        # self.cannons = pygame.sprite.OrderedUpdates()
+        # self.flowers = pygame.sprite.OrderedUpdates()
+        # self.firebowsers = pygame.sprite.OrderedUpdates()
+        # self.roses = pygame.sprite.OrderedUpdates()
         self.nomoveplatforms = pygame.sprite.OrderedUpdates()
         self.coins = pygame.sprite.OrderedUpdates()
-        self.explosions = pygame.sprite.OrderedUpdates()
+        # self.explosions = pygame.sprite.OrderedUpdates()
         self.playerdying = pygame.sprite.OrderedUpdates()
-        self.bombs = pygame.sprite.OrderedUpdates() # bombs = flagpole
-        self.shots = pygame.sprite.OrderedUpdates()
+        # self.bombs = pygame.sprite.OrderedUpdates() # bombs = flagpole
+        # self.shots = pygame.sprite.OrderedUpdates()
         self.springs = pygame.sprite.OrderedUpdates()
-        self.bosses = pygame.sprite.OrderedUpdates()
+        # self.bosses = pygame.sprite.OrderedUpdates()
         self.platformqs = pygame.sprite.OrderedUpdates()
-        self.mushroomgreens = pygame.sprite.OrderedUpdates()
+        # self.mushroomgreens = pygame.sprite.OrderedUpdates()
 
         Player.right_images = [load_image("mario1.png"), load_image("mario2.png"), load_image("mario3.png"), load_image("mario4.png"), load_image("mario1.png"), load_image("mario5.png")]
         Platform.images = {"platform-top.png": load_image("platform-top.png"), "platform-middle.png": load_image("platform-top.png")}
@@ -72,57 +72,57 @@ class Game(object):
         Gray.images = {"gray1.png": load_image("gray1.png"), "gray2.png": load_image("gray2.png")}
         Brick.images = {"brick1.png": load_image("brick1.png"), "brick2.png": load_image("brick2.png")}
         MovingPlatform.image = load_image("moving-platform.png")
-        Firebowser.image = load_image("bowser-fireball1.png")
+        # Firebowser.image = load_image("bowser-fireball1.png")
         MovingPlatformtwo.image = load_image("moving-platformlong.png")
-        Baddie.left_images1 = [load_image("monster%d.png" % i) for i in range(1, 3)]
-        Baddie.left_images2 = [load_image("slub%d.png" % i) for i in range(1, 3)]
-        Baddie.left_images3 = [load_image("squidge%d.png" % i) for i in range(1, 3)]
-        Baddie.left_images4 = [load_image("monster-red%d.png" % i) for i in range(1, 3)]
-        Cannon.left_images1 = [load_image("cannon%d.png" % i) for i in range(1, 3)]
-        Cannon.left_images2 = [load_image("cannonbig%d.png" % i) for i in range(1, 3)]
-        Cannon.left_images4 = [load_image("smallcannon%d.png" % i) for i in range(1, 3)]
-        BaddieBoom.left_images1 = [load_image("monster2.png"), load_image("monster3.png"), load_image("exp1.png"), load_image("exp2.png"), load_image("exp3.png")]
-        BaddieBoom.left_images2 = [load_image("slub2.png"), load_image("slub3.png"), load_image("exp1.png"), load_image("exp2.png"), load_image("exp3.png")]
-        BaddieBoom.left_images3 = [load_image("squidge2.png"), load_image("squidge3.png"), load_image("exp1.png"), load_image("exp2.png"), load_image("exp3.png")]
-        BaddieBoom.left_images4 = [load_image("monster-red2.png"), load_image("monster-red3.png"), load_image("exp1.png"), load_image("exp2.png"), load_image("exp3.png")]
+        # Baddie.left_images1 = [load_image("monster%d.png" % i) for i in range(1, 3)]
+        # Baddie.left_images2 = [load_image("slub%d.png" % i) for i in range(1, 3)]
+        # Baddie.left_images3 = [load_image("squidge%d.png" % i) for i in range(1, 3)]
+        # Baddie.left_images4 = [load_image("monster-red%d.png" % i) for i in range(1, 3)]
+        # Cannon.left_images1 = [load_image("cannon%d.png" % i) for i in range(1, 3)]
+        # Cannon.left_images2 = [load_image("cannonbig%d.png" % i) for i in range(1, 3)]
+        # Cannon.left_images4 = [load_image("smallcannon%d.png" % i) for i in range(1, 3)]
+        # BaddieBoom.left_images1 = [load_image("monster2.png"), load_image("monster3.png"), load_image("exp1.png"), load_image("exp2.png"), load_image("exp3.png")]
+        # BaddieBoom.left_images2 = [load_image("slub2.png"), load_image("slub3.png"), load_image("exp1.png"), load_image("exp2.png"), load_image("exp3.png")]
+        # BaddieBoom.left_images3 = [load_image("squidge2.png"), load_image("squidge3.png"), load_image("exp1.png"), load_image("exp2.png"), load_image("exp3.png")]
+        # BaddieBoom.left_images4 = [load_image("monster-red2.png"), load_image("monster-red3.png"), load_image("exp1.png"), load_image("exp2.png"), load_image("exp3.png")]
         Coin.images = [load_image("coin%s.png" % i) for i in range(1, 5)]
         CoinDie.images = [load_image("exp2-%d.png" % i) for i in range(1, 4)]
         PlayerDie.right_images = [load_image("mariodie.png"), load_image("exp2-1.png"), load_image("exp2-2.png"), load_image("exp2-3.png")]
-        Bomb.image = load_image("flagpole.png")
-        Bridge.image = load_image("bridge.png")
-        BaddieShot.image = load_image("shot.png")
-        CannonShot.image = load_image("cannonbullet1.png")
-        CannonShotbig.image = load_image("cannonbullet1.png")
-        CannonShotsmall.image = load_image("cannonbullet1.png")
+        # Bomb.image = load_image("flagpole.png")
+        # Bridge.image = load_image("bridge.png")
+        # BaddieShot.image = load_image("shot.png")
+        # CannonShot.image = load_image("cannonbullet1.png")
+        # CannonShotbig.image = load_image("cannonbullet1.png")
+        # CannonShotsmall.image = load_image("cannonbullet1.png")
         Spring.images = [load_image("spring1.png"), load_image("spring2.png")]
         Spring2.images = [load_image("spring3.png"), load_image("spring4.png")]
         AirPlatform.image = load_image("platform-air.png")
         PlatformQ.images = [load_image("platform-q%s.png" % i) for i in range (1, 4)]
-        Pipe.image = load_image("pipe.png")
-        Flag.image = load_image("flagpole.png")
-        Castle.image = load_image("castle.png")
-        Castlebig.image = load_image("castle-big.png")
-        Hill.image = load_image("hill.PNG")
-        Bush.image = load_image("bush-1.png")
-        Cloud.image = load_image("cloud.png")
-        Cloud2.image = load_image("dobbelclouds.png")
-        Platform_Brick.image = load_image("platform-brick.png")
-        Boss.left_images = [load_image("bowser1.png"), load_image("bowser2.png"), load_image("bowser3.png")]
-        Flower.left_images1 = [load_image("flower%d.png" % i) for i in range(1, 2)]
-        MushroomGreen.image = load_image("mushroom-green.png")
-        MushroomGreendie.images = [load_image("exp2-%d.png" % i) for i in range(1, 4)]
-        PipeBig.image = load_image("pipe-big.png")
-        Fence.image = load_image("fence.png")
-        Tree1.image = load_image("tree-1.png")
-        Tree2.image = load_image("tree-2.png")
-        Rose.image = load_image ("rose2.png")
-        Grasstexture.image = load_image("grass-texture.png")
-        Grass1.image = load_image("grass-1.png")
-        Grass2.image = load_image("grass-2.png")
-        GrassSprite.image = load_image("grass-texturesprite.png")
-        Wall.image = load_image("wall-1.png")
-        Lava.image = load_image("lava.png")
-        Chain.image = load_image("chain.png")
+        # Pipe.image = load_image("pipe.png")
+        # Flag.image = load_image("flagpole.png")
+        # Castle.image = load_image("castle.png")
+        # Castlebig.image = load_image("castle-big.png")
+        # Hill.image = load_image("hill.PNG")
+        # Bush.image = load_image("bush-1.png")
+        # Cloud.image = load_image("cloud.png")
+        # Cloud2.image = load_image("dobbelclouds.png")
+        # Platform_Brick.image = load_image("platform-brick.png")
+        # Boss.left_images = [load_image("bowser1.png"), load_image("bowser2.png"), load_image("bowser3.png")]
+        # Flower.left_images1 = [load_image("flower%d.png" % i) for i in range(1, 2)]
+        # MushroomGreen.image = load_image("mushroom-green.png")
+        # MushroomGreendie.images = [load_image("exp2-%d.png" % i) for i in range(1, 4)]
+        # PipeBig.image = load_image("pipe-big.png")
+        # Fence.image = load_image("fence.png")
+        # Tree1.image = load_image("tree-1.png")
+        # Tree2.image = load_image("tree-2.png")
+        # Rose.image = load_image ("rose2.png")
+        # Grasstexture.image = load_image("grass-texture.png")
+        # Grass1.image = load_image("grass-1.png")
+        # Grass2.image = load_image("grass-2.png")
+        # GrassSprite.image = load_image("grass-texturesprite.png")
+        # Wall.image = load_image("wall-1.png")
+        # Lava.image = load_image("lava.png")
+        # Chain.image = load_image("chain.png")
 
         Player.groups = self.sprites, self.players
         Platform.groups = self.sprites, self.platforms, self.nomoveplatforms
@@ -139,15 +139,15 @@ class Game(object):
         # MushroomGreen.groups = self.sprites, self.mushroomgreens
         # MushroomGreendie.groups = self.sprites
         PlayerDie.groups = self.sprites, self.playerdying
-        Bomb.groups = self.sprites, self.bombs
-        BaddieShot.groups = self.sprites, self.shots
-        CannonShot.groups = self.sprites, self.shots
-        CannonShotbig.groups = self.sprites, self.shots
-        CannonShotsmall.groups = self.sprites, self.shots
+        # Bomb.groups = self.sprites, self.bombs
+        # BaddieShot.groups = self.sprites, self.shots
+        # CannonShot.groups = self.sprites, self.shots
+        # CannonShotbig.groups = self.sprites, self.shots
+        # CannonShotsmall.groups = self.sprites, self.shots
         Spring.groups = self.sprites, self.springs
         Spring2.groups = self.sprites, self.springs
         AirPlatform.groups = self.sprites, self.platforms, self.nomoveplatforms
-        Pipe.groups = self.sprites, self.platforms, self.nomoveplatforms
+        # Pipe.groups = self.sprites, self.platforms, self.nomoveplatforms
         PlatformQ.groups = self.sprites, self.platformqs, self.nomoveplatforms, self.platforms
         Platform_Brick.groups = self.sprites, self.platforms, self.nomoveplatforms
         # Explosion.groups = self.sprites, self.explosions
@@ -488,13 +488,13 @@ class Game(object):
             self.screen.blit(self.bg, ((-self.camera.rect.x/1)%640 - 640, 0))
             self.camera.draw_sprites(self.screen, self.sprites)
             self.draw_stats()
-            for b in self.bosses:
-                pygame.draw.rect(self.screen, (255, 0, 0), (170, 64, b.hp*60, 32))
-                pygame.draw.rect(self.screen, (0, 0, 0), (170, 64, 300, 32), 1)
+            # for b in self.bosses:
+            #     pygame.draw.rect(self.screen, (255, 0, 0), (170, 64, b.hp*60, 32))
+            #     pygame.draw.rect(self.screen, (0, 0, 0), (170, 64, 300, 32), 1)
             if not self.player.alive() and not self.playerdying:
-                if self.lives <= 1:
-                    self.score_screen()
-                else:
+                # if self.lives <= 1:
+                #     self.score_screen()
+                # else:
                     self.show_death()
                     self.lives -= 1
                     self.redo_level()
