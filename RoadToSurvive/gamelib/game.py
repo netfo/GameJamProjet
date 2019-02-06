@@ -250,6 +250,9 @@ class Game(object):
             self.draw_stats()
 
             if not self.player.alive() and not self.playerdying:
+                 if self.lives <= 1:
+                     self.score_screen()
+                 else:
                     self.show_death()
                     self.lives -= 1
                     self.redo_level()
