@@ -85,6 +85,14 @@ class Level:
                     Castle((self.x*32, self.y*22))
                 if color == (255, 233, 127, 255):
                     Hill((self.x*32, self.y*29))
+                if color == (76, 255, 0, 255):
+                    Cannon((self.x*32 + 1, self.y*29.3 + 4), "cannon") # 1
+                if color == (63, 73, 127, 255):
+                    Cannon((self.x*32 + 1, self.y*24.5  + 4), "cannonbig") # 1
+                if color == (255, 127, 182, 255):
+                    Cannon((self.x*32 + 1, self.y*32 + 2), "smallcannon") # 1
+                if color == (127, 0, 110, 255):
+                    Flower((self.x*32.5, self.y*28.8 + 2), "flower")
                 if color == (255, 0, 0, 255):
                     MovingPlatform((self.x*32, self.y*32))
                 if color == (82, 127, 63, 255):
@@ -107,6 +115,10 @@ class Level:
                     Tree1((self.x*32, self.y*27))
                 if color == (255, 0, 220, 255):
                     Cloud2((self.x*32, self.y*32))
+                if color == (72, 0, 255, 255):
+                    Rose((self.x*32.23, self.y*27.8 + 2), "flower2")
+                if color ==(255, 106, 0, 255):
+                    Baddie((self.x*32 + 2, self.y*32 + 4), "monsterred")
                 if color ==((38, 127, 0, 255)):
                     Tree2((self.x*32, self.y*29.7))
                 if color ==((0, 127, 127, 255)):
