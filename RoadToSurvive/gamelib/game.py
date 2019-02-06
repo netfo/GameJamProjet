@@ -95,7 +95,6 @@ class Game(object):
         CannonShotbig.image = load_image("cannonbullet1.png")
         CannonShotsmall.image = load_image("cannonbullet1.png")
         Spring.images = [load_image("spring1.png"), load_image("spring2.png")]
-        Spring2.images = [load_image("spring3.png"), load_image("spring4.png")]
         AirPlatform.image = load_image("platform-air.png")
         PlatformQ.images = [load_image("platform-q%s.png" % i) for i in range (1, 4)]
         Pipe.image = load_image("pipe.png")

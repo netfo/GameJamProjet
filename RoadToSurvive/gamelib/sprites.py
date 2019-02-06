@@ -528,20 +528,6 @@ class Spring(Collidable):
         if self.spring_time > 0:
             self.image = self.images[1]
 
-class Spring2(Collidable):
-    def __init__(self, pos):
-        Collidable.__init__(self, self.groups)
-        self.image = self.images[0]
-        self.rect = self.image.get_rect(topleft = pos)
-        self.spring_time = 0
-        self.on_left = False
-        self.on_right = False
-    def update(self):
-        self.image = self.images[0]
-        self.spring_time -= 1
-        if self.spring_time > 0:
-            self.image = self.images[1]
-
 class Stringer(Collidable):
     def __init__(self, pos, dir, id, player):
         Collidable.__init__(self, self.groups)
