@@ -277,10 +277,10 @@ class Game(object):
         pygame.time.wait(7500)
         pygame.display.flip()
 
-    def gameover_screen(self):
+    def score_screen(self):
         stop_music()
         play_music("gameover.ogg")
-        cutscene(self.screen, ["Game Over"])
+        cutscene(self.screen, ["Your highscore: %05d" % self.highscore])
         self.end()
 
 
@@ -471,7 +471,7 @@ class Game(object):
                 self.highscore = self.score
 
             if self.player.alive():
-                self.time -= 0.060
+                self.time -= 0.560
             if self.time <= 0:
                 self.player.hit()
 
@@ -494,8 +494,8 @@ class Game(object):
                 pygame.draw.rect(self.screen, (255, 0, 0), (170, 64, b.hp*60, 32))
                 pygame.draw.rect(self.screen, (0, 0, 0), (170, 64, 300, 32), 1)
             if not self.player.alive() and not self.playerdying:
-                if self.lives <= 0:
-                    self.gameover_screen()
+                if self.lives <= 3 and self.time<=0:
+                    self.score_screen()
                 else:
                     self.show_death()
                     self.lives -= 1
@@ -517,10 +517,6 @@ class Game(object):
         self.screen.blit(ren, (624-ren.get_width(), 16))
         ren = self.font.render("x%d" % lives, 1, (255, 255, 255))
         self.screen.blit(ren, (315+34, 24))
-        ren = self.font.render("World 1-%0d" % self.lvl, 1, (255, 255, 255))
-        self.screen.blit(ren, (245-ren.get_width(), 16))
-        ren = self.font.render("FPS: %d" % self.clock.get_fps(), 1, (255, 255, 255))
-        self.screen.blit(ren, (511, 41))
         ren = self.font.render("High:%05d" % self.highscore, 1, (255, 255, 255))
         self.screen.blit(ren, (260-ren.get_width(), 38))
         ren1 = self.font.render("Time: %d" % self.time, 1, (255, 255, 255))
