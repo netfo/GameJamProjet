@@ -126,7 +126,7 @@ class Player(Collidable):
                 self.springing = True
                 self.spring_sound.play()
             if isinstance(sprite, Spring2):
-                self.jump_speed = -10
+                self.jump_speed = -13
                 sprite.spring_time = 5
                 self.jumping = True
                 self.springing = True
@@ -143,7 +143,7 @@ class Player(Collidable):
 
     def jump(self):
         if not self.jumping and not self.shooting and self.still_timer <= 0:
-            self.jump_speed = -9.4
+            self.jump_speed = -9.3
             self.jumping = True
             self.jump_sound.play()
             self.move(0, -4)
