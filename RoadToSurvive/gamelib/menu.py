@@ -14,17 +14,29 @@ def RunGame(screen):
 def Credit(screen):
     cutscene(screen, ["Credits",
     "",
-    "Samuel SEBAG : Dictateur",
-    "Thibaud FERNANDEZ : Chef de groupe",
-    "Quentin FOURRIER : Developpeur",
-    "Andy BULOT : Developpeur",
-    "Rowin BOISSIN : Crediteur",
-    "https://openclassrooms.com/fr/courses/235344-apprenez-a-programmer-en-python"])
+    "BULOT Andy : Developpeur",
+    "BOISSIN Rowin : Crediteur",
+    "FERNANDEZ Thibaud : Chef de groupe",
+    "FOURRIER Quentin : Developpeur",
+    "SEBAG Samuel : Dictateur",
+    ""])
+def source(screen):
+    cutscene(screen, ["Source",
+    "",
+    "https://openclassrooms.com/fr/",
+    "courses/235344-apprenez-a-",
+    "programmer-en-python",
+    "",
+    "https://www.pygame.org/",
+    "",
+    "https://www.python.org/",
+    ""])
+
 class Menu(object):
 
     def __init__(self, screen):
         self.screen = screen
-        self.menu = EzMenu(["Jouer", lambda: RunGame(screen)],["Credits", lambda: Credit(screen)],["Quitter", sys.exit])
+        self.menu = EzMenu(["Jouer", lambda: RunGame(screen)],["Credits", lambda: Credit(screen)],["Source", lambda: source(screen)],["Quitter", sys.exit],)
 
         # couleur par defaut
         self.menu.set_normal_color((255, 255, 255))
