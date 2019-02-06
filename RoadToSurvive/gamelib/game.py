@@ -435,28 +435,28 @@ class Game(object):
                 else:
                     self.player.rect.right = self.camera.world.w
 
-            if self.lvl == 5:
-                self.bg = load_image("background-1.png")
-                self.music = "castle.ogg"
-            else:
-                if self.lvl == 6:
-                    self.bg = load_image("background-2.png")
-
-            for b in self.baddies:
-                if self.player.rect.colliderect(b.rect):
-                    if self.player.jump_speed > 0 and \
-                       self.player.rect.bottom < b.rect.top+10 and \
-                       b.alive():
-                        b.kill()
-                        self.player.jump_speed = -3
-                        self.player.jump_speed = -5
-                        self.player.rect.bottom = b.rect.top-1
-                        self.score += 100
-                        self.baddie_sound.play()
-                        BaddieBoom(b.rect.center, b.speed, b.type)
-                    else:
-                        if b.alive():
-                            self.player.hit()
+            # if self.lvl == 5:
+            #     self.bg = load_image("background-1.png")
+            #     self.music = "castle.ogg"
+            # else:
+            #     if self.lvl == 6:
+            #         self.bg = load_image("background-2.png")
+            #
+            # for b in self.baddies:
+            #     if self.player.rect.colliderect(b.rect):
+            #         if self.player.jump_speed > 0 and \
+            #            self.player.rect.bottom < b.rect.top+10 and \
+            #            b.alive():
+            #             b.kill()
+            #             self.player.jump_speed = -3
+            #             self.player.jump_speed = -5
+            #             self.player.rect.bottom = b.rect.top-1
+            #             self.score += 100
+            #             self.baddie_sound.play()
+            #             BaddieBoom(b.rect.center, b.speed, b.type)
+            #         else:
+            #             if b.alive():
+            #                 self.player.hit()
 
             if self.player.rect.right > self.camera.world.w:
                 if not self.bombs and self.lvl < 30:
