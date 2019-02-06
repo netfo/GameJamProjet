@@ -118,13 +118,13 @@ class Player(Collidable):
             self.jumping = False
             self.springing = False
             if isinstance(sprite, Spring):
-                self.jump_speed = -20
+                self.jump_speed = -13
                 sprite.spring_time = 5
                 self.jumping = True
                 self.springing = True
                 self.spring_sound.play()
             if isinstance(sprite, Spring2):
-                self.jump_speed = -13
+                self.jump_speed = -8
                 sprite.spring_time = 5
                 self.jumping = True
                 self.springing = True
@@ -136,9 +136,19 @@ class Player(Collidable):
                 self.jumping = True
                 self.springing = True
                 if key[K_z]:
-                    self.jump_accel = 0.01
+                    self.jump_accel = 0.05
                 else:
-                    self.jump_accel = 0.03
+                    self.jump_accel = 0.4
+                self.spring_sound.play()
+            if isinstance(sprite, Platform):
+                key = pygame.key.get_pressed()
+                sprite.spring_time = 5
+                self.jumping = False
+                self.springing = False
+                if key[K_z]:
+                    self.jump_accel = 0.3
+                else:
+                    self.jump_accel = 0.6
                 self.spring_sound.play()
 
     def hit(self):
@@ -152,7 +162,7 @@ class Player(Collidable):
 
     def jump(self):
         if not self.jumping and not self.shooting and self.still_timer <= 0:
-            self.jump_speed = -9.3
+            self.jump_speed = -13
             self.jumping = True
             self.jump_sound.play()
             self.move(0, -4)
