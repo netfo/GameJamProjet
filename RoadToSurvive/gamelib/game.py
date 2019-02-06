@@ -45,53 +45,53 @@ class Game(object):
         self.sprites = pygame.sprite.OrderedUpdates()
         self.players = pygame.sprite.OrderedUpdates()
         self.platforms = pygame.sprite.OrderedUpdates()
-        self.grays = pygame.sprite.OrderedUpdates()
+        # self.grays = pygame.sprite.OrderedUpdates()
         self.bricks = pygame.sprite.OrderedUpdates()
-        self.movingplatforms = pygame.sprite.OrderedUpdates()
-        self.movingplatformtwos = pygame.sprite.OrderedUpdates()
+        # self.movingplatforms = pygame.sprite.OrderedUpdates()
+        # self.movingplatformtwos = pygame.sprite.OrderedUpdates()
         self.nomoveplatforms = pygame.sprite.OrderedUpdates()
         self.coins = pygame.sprite.OrderedUpdates()
         self.playerdying = pygame.sprite.OrderedUpdates()
         self.springs = pygame.sprite.OrderedUpdates()
-        self.platformqs = pygame.sprite.OrderedUpdates()
+        # self.platformqs = pygame.sprite.OrderedUpdates()
 
         Player.right_images = [load_image("mario1.png"), load_image("mario2.png"), load_image("mario3.png"), load_image("mario4.png"), load_image("mario1.png"), load_image("mario5.png")]
         Platform.images = {"platform-top.png": load_image("platform-top.png"), "platform-middle.png": load_image("platform-top.png")}
-        Grass.images = {"grass-1.png": load_image("grass-1.png"), "grass-middle.png": load_image("grass-middle.png")}
-        Gray.images = {"gray1.png": load_image("gray1.png"), "gray2.png": load_image("gray2.png")}
-        Brick.images = {"brick1.png": load_image("brick1.png"), "brick2.png": load_image("brick2.png")}
-        MovingPlatform.image = load_image("moving-platform.png")
-        MovingPlatformtwo.image = load_image("moving-platformlong.png")
+        # Grass.images = {"grass-1.png": load_image("grass-1.png"), "grass-middle.png": load_image("grass-middle.png")}
+        # Gray.images = {"gray1.png": load_image("gray1.png"), "gray2.png": load_image("gray2.png")}
+        Brick.images = {"brick2.png": load_image("brick2.png")}
+        # MovingPlatform.image = load_image("moving-platform.png")
+        # MovingPlatformtwo.image = load_image("moving-platformlong.png")
         Coin.images = [load_image("coin%s.png" % i) for i in range(1, 5)]
         CoinDie.images = [load_image("exp2-%d.png" % i) for i in range(1, 4)]
         PlayerDie.right_images = [load_image("mariodie.png"), load_image("exp2-1.png"), load_image("exp2-2.png"), load_image("exp2-3.png")]
         Spring.images = [load_image("spring1.png"), load_image("spring2.png")]
         Spring2.images = [load_image("spring3.png"), load_image("spring4.png")]
-        AirPlatform.image = load_image("platform-air.png")
-        PlatformQ.images = [load_image("platform-q%s.png" % i) for i in range (1, 4)]
+        # AirPlatform.image = load_image("platform-air.png")
+        # PlatformQ.images = [load_image("platform-q%s.png" % i) for i in range (1, 4)]
 
         Player.groups = self.sprites, self.players
         Platform.groups = self.sprites, self.platforms, self.nomoveplatforms
         Brick.groups = self.sprites, self.bricks, self.nomoveplatforms
-        Gray.groups = self.sprites, self.grays, self.nomoveplatforms
-        MovingPlatform.groups = self.sprites, self.platforms, self.movingplatforms
-        MovingPlatformtwo.groups = self.sprites, self.platforms, self.movingplatformtwos
+        # Gray.groups = self.sprites, self.grays, self.nomoveplatforms
+        # MovingPlatform.groups = self.sprites, self.platforms, self.movingplatforms
+        # MovingPlatformtwo.groups = self.sprites, self.platforms, self.movingplatformtwos
         Coin.groups = self.sprites, self.coins
         CoinDie.groups = self.sprites
         PlayerDie.groups = self.sprites, self.playerdying
         Spring.groups = self.sprites, self.springs
         Spring2.groups = self.sprites, self.springs
-        AirPlatform.groups = self.sprites, self.platforms, self.nomoveplatforms
-        PlatformQ.groups = self.sprites, self.platformqs, self.nomoveplatforms, self.platforms
-        Platform_Brick.groups = self.sprites, self.platforms, self.nomoveplatforms
+        # AirPlatform.groups = self.sprites, self.platforms, self.nomoveplatforms
+        # PlatformQ.groups = self.sprites, self.platformqs, self.nomoveplatforms, self.platforms
+        # Platform_Brick.groups = self.sprites, self.platforms, self.nomoveplatforms
         # Grasstexture.groups = self.sprites, self.platforms, self.nomoveplatforms
         # Grass1.groups = self.sprites, self.platforms, self.nomoveplatforms
         # Grass2.groups = self.sprites, self.platforms, self.nomoveplatforms
-        GrassSprite.groups = self.sprites
-        Wall.groups = self.sprites
-        Lava.groups = self.sprites
-        Bridge.groups = self.sprites, self.platforms, self.nomoveplatforms
-        Chain.groups = self.sprites,
+        # GrassSprite.groups = self.sprites
+        # Wall.groups = self.sprites
+        # Lava.groups = self.sprites
+        # Bridge.groups = self.sprites, self.platforms, self.nomoveplatforms
+        # Chain.groups = self.sprites,
 
         self.highscore = 0
         self.score = 0
@@ -131,47 +131,47 @@ class Game(object):
         pygame.time.wait(2500)
         play_music(self.music)
 
-    def redo_level(self):
-        self.booming = False
-        # self.boom_timer = 0
-        self.time = 180
-        if self.running:
-            self.clear_sprites()
-            self.level = Level(self.lvl)
-            self.player = Player((0, 0))
-            self.camera = Camera(self.player, self.level.get_size()[0])
-            self.score -= self.score
-            self.highscore = self.highscore
-            play_music("maintheme.ogg")
-            if self.lvl == 5:
-                play_music("castle.ogg")
+    # def redo_level(self):
+    #     self.booming = False
+    #     # self.boom_timer = 0
+    #     self.time = 180
+    #     if self.running:
+    #         self.clear_sprites()
+    #         self.level = Level(self.lvl)
+    #         self.player = Player((0, 0))
+    #         self.camera = Camera(self.player, self.level.get_size()[0])
+    #         self.score -= self.score
+    #         self.highscore = self.highscore
+    #         play_music("maintheme.ogg")
+    #         # if self.lvl == 5:
+    #         #     play_music("castle.ogg")
 
-    def show_death(self):
-        ren = self.font.render("YOU DIED", 1, (255, 255, 255))
-        self.screen.blit(ren, (320-ren.get_width()/2, 235))
-        pygame.display.flip()
-        pygame.time.wait(2500)
+    # def show_death(self):
+    #     ren = self.font.render("YOU DIED", 1, (255, 255, 255))
+    #     self.screen.blit(ren, (320-ren.get_width()/2, 235))
+    #     pygame.display.flip()
+    #     pygame.time.wait(2500)
 
-    def show_end(self):
-        play_music("goal.ogg")
-        pygame.time.wait(7500)
-        pygame.display.flip()
+    # def show_end(self):
+    #     play_music("goal.ogg")
+    #     pygame.time.wait(7500)
+    #     pygame.display.flip()
 
     def score_screen(self):
         stop_music()
         play_music("gameover.ogg")
-        cutscene(self.screen, ["Your highscore: %05d" % self.score])
+        cutscene(self.screen, ["Your score: %05d" % self.score])
         self.end()
 
 
-    def clear_sprites(self):
-        for s in self.sprites:
-            pygame.sprite.Sprite.kill(s)
+    # def clear_sprites(self):
+    #     for s in self.sprites:
+    #         pygame.sprite.Sprite.kill(s)
 
     def main_loop(self):
 
         while self.running:
-            BaddieShot.player = self.player
+            # BaddieShot.player = self.player
             if not self.running:
                 return
 
@@ -190,9 +190,9 @@ class Game(object):
             self.player.collide(self.bricks)
 
 
-            for l in self.grays:
-                l.update()
-            self.player.collide(self.grays)
+            # for l in self.grays:
+            #     l.update()
+            # self.player.collide(self.grays)
 
             for c in self.coins:
                 if self.player.rect.colliderect(c.rect):
@@ -201,23 +201,17 @@ class Game(object):
                     CoinDie(c.rect.center)
                     self.score += 50
 
-            for p in self.movingplatformtwos:
-                p.collide(self.players)
-                for p2 in self.platforms:
-                    if p != p2:
-                        p.collide_with_platforms(p2)
-
-            for p in self.movingplatforms:
-                p.collide(self.players)
-                for p2 in self.platforms:
-                    if p != p2:
-                        p.collide_with_platforms(p2)
-
-            if self.player.rect.right > self.camera.world.w:
-                if not self.bombs and self.lvl < 30:
-                    self.next_level()
-                else:
-                    self.player.rect.right = self.camera.world.w
+            # for p in self.movingplatformtwos:
+            #     p.collide(self.players)
+            #     for p2 in self.platforms:
+            #         if p != p2:
+            #             p.collide_with_platforms(p2)
+            #
+            # for p in self.movingplatforms:
+            #     p.collide(self.players)
+            #     for p2 in self.platforms:
+            #         if p != p2:
+            #             p.collide_with_platforms(p2)
 
             if self.player.rect.right > self.camera.world.w:
                 if not self.bombs and self.lvl < 30:
@@ -226,7 +220,13 @@ class Game(object):
                     self.player.rect.right = self.camera.world.w
 
             if self.player.rect.right > self.camera.world.w:
-                self.next_level()
+                if not self.bombs and self.lvl < 30:
+                    self.next_level()
+                else:
+                    self.player.rect.right = self.camera.world.w
+
+            # if self.player.rect.right > self.camera.world.w:
+            #     self.next_level()
 
 
             if self.player.alive():
@@ -241,6 +241,8 @@ class Game(object):
                     if e.key == K_ESCAPE:
                         self.end()
                     if e.key == K_z:
+                        self.player.jump()
+                    if e.key == K_UP:
                         self.player.jump()
             if not self.running:
                 return
