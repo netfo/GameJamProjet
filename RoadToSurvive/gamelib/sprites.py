@@ -114,8 +114,6 @@ class Player(Collidable):
         if side == TOP_SIDE:
             self.jump_speed = 0
         if side == BOTTOM_SIDE:
-            if isinstance(sprite, Spikes):
-                self.kill()
             self.jump_speed = 0
             self.jumping = False
             self.springing = False
@@ -131,21 +129,16 @@ class Player(Collidable):
                 self.jumping = True
                 self.springing = True
                 self.spring_sound.play()
-            if isinstance(sprite, Platform):
+            if isinstance(sprite, Brick):
                 key = pygame.key.get_pressed()
-
+                self.jump_speed = -5
+                sprite.spring_time = 5
+                self.jumping = True
+                self.springing = True
                 if key[K_z]:
                     self.jump_accel = 0.01
                 else:
-                    self.jump_accel = 0.3
-                self.spring_sound.play()
-            if isinstance(sprite, Platform_Brick):
-                key = pygame.key.get_pressed()
-
-                if key[K_z]:
-                    self.jump_accel = 2
-                else:
-                    self.jump_accel = 0.6
+                    self.jump_accel = 0.03
                 self.spring_sound.play()
 
     def hit(self):
