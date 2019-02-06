@@ -1,7 +1,7 @@
 #! /usr/bin/env python
 
 import sys, os
-import random
+
 
 import pygame
 from pygame.locals import *
@@ -84,15 +84,16 @@ class Game(object):
         AirPlatform.groups = self.sprites, self.platforms, self.nomoveplatforms
         PlatformQ.groups = self.sprites, self.platformqs, self.nomoveplatforms, self.platforms
         Platform_Brick.groups = self.sprites, self.platforms, self.nomoveplatforms
-        Grasstexture.groups = self.sprites, self.platforms, self.nomoveplatforms
-        Grass1.groups = self.sprites, self.platforms, self.nomoveplatforms
-        Grass2.groups = self.sprites, self.platforms, self.nomoveplatforms
+        # Grasstexture.groups = self.sprites, self.platforms, self.nomoveplatforms
+        # Grass1.groups = self.sprites, self.platforms, self.nomoveplatforms
+        # Grass2.groups = self.sprites, self.platforms, self.nomoveplatforms
         GrassSprite.groups = self.sprites
         Wall.groups = self.sprites
         Lava.groups = self.sprites
         Bridge.groups = self.sprites, self.platforms, self.nomoveplatforms
         Chain.groups = self.sprites,
 
+        self.highscore = 0
         self.score = 0
         self.lives = 1
         self.lvl   = 1
