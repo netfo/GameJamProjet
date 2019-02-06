@@ -24,7 +24,7 @@ class Menu(object):
 
     def __init__(self, screen):
         self.screen = screen
-        self.menu = EzMenu(["Jouer", lambda: RunGame(screen)], ["Quitter", sys.exit],["Credits", lambda: Credit(screen)])
+        self.menu = EzMenu(["Jouer", lambda: RunGame(screen)],["Credits", lambda: Credit(screen)],["Quitter", sys.exit])
 
         # couleur par defaut
         self.menu.set_normal_color((255, 255, 255))
