@@ -11,12 +11,20 @@ from cutscenes import *
 def RunGame(screen):
     Game(screen)
     # play_music("title.ogg", 0.75)
-
+def Credit(screen):
+    cutscene(screen, ["Credits",
+    "",
+    "Samuel SEBAG : Dictateur",
+    "Thibaud FERNANDEZ : Chef de groupe",
+    "Quentin FOURRIER : developpeur",
+    "Andy BULOT : developpeur",
+    "Rowin BOISSIN : Crediteur",
+    ""])
 class Menu(object):
 
     def __init__(self, screen):
         self.screen = screen
-        self.menu = EzMenu(["Jouer", lambda: RunGame(screen)], ["Quitter", sys.exit])
+        self.menu = EzMenu(["Jouer", lambda: RunGame(screen)], ["Quitter", sys.exit],["Credits", lambda: Credit(screen)])
 
         # couleur par defaut
         self.menu.set_normal_color((255, 255, 255))
