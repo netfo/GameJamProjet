@@ -226,29 +226,29 @@ class Game(object):
         pygame.time.wait(2500)
         play_music(self.music)
 
-    def next_level(self):
-        self.time = 180
-        self.booming = True
-        self.boom_timer = 0
-        try:
-            self.lvl += 1
-            if self.lvl == 5:
-                self.music = "castle.ogg"
-            self.clear_sprites()
-            self.level = Level(self.lvl)
-            self.player = Player((0, 0))
-            self.camera = Camera(self.player, self.level.get_size()[0])
-            save_level(self.lvl)
-            self.intro_level()
-        except:
-            if self.lives == 0: # Fix =)
-                self.lives += 1
-            cutscene(self.screen,
-            ['This was only a test version',
-             'press enter to end'])
-
-
-            self.end()
+    # def next_level(self):
+    #     self.time = 180
+    #     self.booming = True
+    #     self.boom_timer = 0
+    #     try:
+    #         self.lvl += 1
+    #         if self.lvl == 5:
+    #             self.music = "castle.ogg"
+    #         self.clear_sprites()
+    #         self.level = Level(self.lvl)
+    #         self.player = Player((0, 0))
+    #         self.camera = Camera(self.player, self.level.get_size()[0])
+    #         save_level(self.lvl)
+    #         self.intro_level()
+    #     except:
+    #         if self.lives == 0: # Fix =)
+    #             self.lives += 1
+    #         cutscene(self.screen,
+    #         ['This was only a test version',
+    #          'press enter to end'])
+    #
+    #
+    #         self.end()
 
     def redo_level(self):
         self.booming = False
@@ -262,7 +262,6 @@ class Game(object):
             self.score -= self.score
             self.highscore = self.highscore
             play_music("maintheme.ogg")
-            #play_music("maintheme.ogg")
             if self.lvl == 5:
                 play_music("castle.ogg")
 
@@ -292,9 +291,9 @@ class Game(object):
 
         while self.running:
             BaddieShot.player = self.player
-            CannonShot.player = self.player
-            CannonShotbig.player = self.player
-            CannonShotsmall.player = self.player
+            # CannonShot.player = self.player
+            # CannonShotbig.player = self.player
+            # CannonShotsmall.player = self.player
             if not self.running:
                 return
 
@@ -305,19 +304,19 @@ class Game(object):
             for s in self.sprites:
                 s.update()
 
-            for b in self.bombs:
-                if self.player.rect.colliderect(b.rect):
-                    self.show_end()
-                    self.next_level()
-                    self.score += 500
-            for s in self.shots:
-                if not s.rect.colliderect(self.camera.rect):
-                    s.kill()
-                if s.rect.colliderect(self.player.rect):
-                    self.player.hit()
-                    s.kill()
-            if self.booming and self.boom_timer <= 0:
-                self.redo_level()
+            # for b in self.bombs:
+            #     if self.player.rect.colliderect(b.rect):
+            #         self.show_end()
+            #         self.next_level()
+            #         self.score += 500
+            # for s in self.shots:
+            #     if not s.rect.colliderect(self.camera.rect):
+            #         s.kill()
+            #     if s.rect.colliderect(self.player.rect):
+            #         self.player.hit()
+            #         s.kill()
+            # if self.booming and self.boom_timer <= 0:
+            #     self.redo_level()
 
 
             for p in self.platforms:
@@ -325,9 +324,9 @@ class Game(object):
             self.player.collide(self.springs)
             self.player.collide(self.platforms)
 
-            for g in self.grasss:
-                g.update()
-            self.player.collide(self.grasss)
+            # for g in self.grasss:
+            #     g.update()
+            # self.player.collide(self.grasss)
 
             for b in self.bricks:
                 b.update()
@@ -338,13 +337,13 @@ class Game(object):
                 l.update()
             self.player.collide(self.grays)
 
-            for m in self.mushroomgreens:
-                if self.player.rect.colliderect(m.rect):
-                    m.kill()
-                    MushroomGreendie(m.rect.center)
-                    self.score += 5000
-                    self.lives += 1
-                    self.up_sound.play()
+            # for m in self.mushroomgreens:
+            #     if self.player.rect.colliderect(m.rect):
+            #         m.kill()
+            #         MushroomGreendie(m.rect.center)
+            #         self.score += 5000
+            #         self.lives += 1
+            #         self.up_sound.play()
 
             for c in self.coins:
                 if self.player.rect.colliderect(c.rect):
@@ -365,69 +364,69 @@ class Game(object):
                     if p != p2:
                         p.collide_with_platforms(p2)
 
-            for b in self.flowers:
-                if self.player.rect.colliderect(b.rect):
-                    self.player.hit()
-
-            for f in self.firebowsers:
-                if self.player.rect.colliderect(f.rect):
-                    self.player.hit()
+            # for b in self.flowers:
+            #     if self.player.rect.colliderect(b.rect):
+            #         self.player.hit()
+            #
+            # for f in self.firebowsers:
+            #     if self.player.rect.colliderect(f.rect):
+            #         self.player.hit()
 #________________________________________________________________________
 
-            for b in self.baddies:                               # |
-                if b.rect.colliderect(self.camera.rect):         # V
-                    if b.type == "squidge":
-                        if not random.randrange(70):
-                            BaddieShot(b.rect.center)
-                if b.type != "squidge":
-                    b.collide(self.nomoveplatforms)              # Big problem here somewhere,
-                    b.collide(self.springs)                      # The enemies is making the game laggy.
-                    b.collide(self.cannons)                      # Main problem would be b.collide(self.nomoveplatforms)
+            # for b in self.baddies:                               # |
+            #     if b.rect.colliderect(self.camera.rect):         # V
+            #         if b.type == "squidge":
+            #             if not random.randrange(70):
+            #                 BaddieShot(b.rect.center)
+            #     if b.type != "squidge":
+            #         b.collide(self.nomoveplatforms)              # Big problem here somewhere,
+            #         b.collide(self.springs)                      # The enemies is making the game laggy.
+            #         b.collide(self.cannons)                      # Main problem would be b.collide(self.nomoveplatforms)
                                                                  # Makes the enemies collide with main platform and for some reason,
                                                                  # that causes alot of problems.
-            for c in self.cannons:
-                if c.rect.colliderect(self.camera.rect):
-                    if c.type == "cannon":
-                        if not random.randrange(135):
-                            CannonShot(c.rect.center)
-                    if c.type != "cannon":
-                        c.collide(self.nomoveplatforms)
-                        c.collide(self.springs)
-                    if c.type == "cannonbig":
-                        if not random.randrange(120):
-                            CannonShotbig(c.rect.center)
-                    if c.type != "cannonbig":
-                        c.collide(self.nomoveplatforms)
-                        c.collide(self.springs)
-                        c.collide(self.cannons)
-                    if c.type == "smallcannon":
-                         if not random.randrange(145):
-                            CannonShotsmall(c.rect.center)
-                    if c.type != "smallcannon":
-                        c.collide(self.nomoveplatforms)
-                        c.collide(self.springs)
-                        c.collide(self.cannons)
+            # for c in self.cannons:
+            #     if c.rect.colliderect(self.camera.rect):
+            #         if c.type == "cannon":
+            #             if not random.randrange(135):
+            #                 CannonShot(c.rect.center)
+            #         if c.type != "cannon":
+            #             c.collide(self.nomoveplatforms)
+            #             c.collide(self.springs)
+            #         if c.type == "cannonbig":
+            #             if not random.randrange(120):
+            #                 CannonShotbig(c.rect.center)
+            #         if c.type != "cannonbig":
+            #             c.collide(self.nomoveplatforms)
+            #             c.collide(self.springs)
+            #             c.collide(self.cannons)
+            #         if c.type == "smallcannon":
+            #              if not random.randrange(145):
+            #                 CannonShotsmall(c.rect.center)
+            #         if c.type != "smallcannon":
+            #             c.collide(self.nomoveplatforms)
+            #             c.collide(self.springs)
+            #             c.collide(self.cannons)
 #_______________________________________________________________________
 
-            for b in self.flowers:
-                if self.player.rect.colliderect(b.rect):
-                    self.player.hit()
-
-            for r in self.roses:
-                if self.player.rect.colliderect(r.rect):
-                    self.player.hit()
-
-            for b in self.bosses:
-                if self.player.rect.colliderect(b.rect) and not b.dead:
-                    self.player.hit()
-                if b.die_time <= 0 and b.dead and not self.explosions:
-                    pygamesprite.Sprite.kill(b)
-                    self.next_level()
-                if b.die_time > 0:
-                    for s in self.shots:
-                        s.kill()
-                    if not random.randrange(4):
-                        self.boom_sound.play()
+            # for b in self.flowers:
+            #     if self.player.rect.colliderect(b.rect):
+            #         self.player.hit()
+            #
+            # for r in self.roses:
+            #     if self.player.rect.colliderect(r.rect):
+            #         self.player.hit()
+            #
+            # for b in self.bosses:
+            #     if self.player.rect.colliderect(b.rect) and not b.dead:
+            #         self.player.hit()
+            #     if b.die_time <= 0 and b.dead and not self.explosions:
+            #         pygamesprite.Sprite.kill(b)
+            #         self.next_level()
+            #     if b.die_time > 0:
+            #         for s in self.shots:
+            #             s.kill()
+            #         if not random.randrange(4):
+            #             self.boom_sound.play()
 
             if self.player.rect.right > self.camera.world.w:
                 if not self.bombs and self.lvl < 30:
