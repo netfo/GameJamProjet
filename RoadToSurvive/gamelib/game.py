@@ -230,7 +230,7 @@ class Game(object):
 
 
             if self.player.alive():
-                self.time -= 0.010
+                self.time -= 0.013
             if self.time <= 0:
                 self.player.hit()
 

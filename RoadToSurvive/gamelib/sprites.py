@@ -131,6 +131,22 @@ class Player(Collidable):
                 self.jumping = True
                 self.springing = True
                 self.spring_sound.play()
+            if isinstance(sprite, Platform):
+                key = pygame.key.get_pressed()
+
+                if key[K_z]:
+                    self.jump_accel = 0.01
+                else:
+                    self.jump_accel = 0.3
+                self.spring_sound.play()
+            if isinstance(sprite, Platform_Brick):
+                key = pygame.key.get_pressed()
+
+                if key[K_z]:
+                    self.jump_accel = 2
+                else:
+                    self.jump_accel = 0.6
+                self.spring_sound.play()
 
     def hit(self):
         if self.hit_timer <= 0:
@@ -163,10 +179,10 @@ class Player(Collidable):
         dx = 0
         key = pygame.key.get_pressed()
 
-        if key[K_z] and not self.springing:
-            self.jump_accel = 0.3
-        else:
-            self.jump_accel = 0.6
+        # if key[K_z] and not self.springing:
+        #     self.jump_accel = 0.3
+        # else:
+        #     self.jump_accel = 0.6
 
         if self.jump_speed < 8:
             self.jump_speed += self.jump_accel
