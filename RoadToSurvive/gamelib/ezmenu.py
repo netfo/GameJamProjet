@@ -33,8 +33,9 @@ class EzMenu:
                 self.width = ren.get_width()
             surface.blit(ren, ((self.x+self.width/2) - ren.get_width()/2, self.y + i*(self.font.get_height()+4)))
             i+=1
-            
+
     def update(self, events):
+        # parcourir les choix grace aux fleches
         for e in events:
             if e.type == pygame.KEYDOWN:
                 if e.key == pygame.K_DOWN:
@@ -43,24 +44,22 @@ class EzMenu:
                     self.option -= 1
                 if e.key == pygame.K_RETURN:
                     self.options[self.option][1]()
+        # securite pour ne pas sortir des choix
         if self.option > len(self.options)-1:
             self.option = 0
         if self.option < 0:
             self.option = len(self.options)-1
 
-    def set_pos(self, x, y):     
+    def set_pos(self, x, y):
         self.x = x
         self.y = y
-        
+
     def set_font(self, font):
         self.font = font
-        
-    def set_highlight_color(self, color):
-        self.hcolor = color
-        
+
     def set_normal_color(self, color):
         self.color = color
-        
+
     def center_at(self, x, y):
         self.x = x-(self.width/2)
         self.y = y-(self.height/2)

@@ -11,3 +11,5 @@ def main():
     pygame.display.set_caption("Road to survive")
     screen = pygame.display.set_mode((640, 480))
     menu.Menu(screen)
+
+main();
