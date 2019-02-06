@@ -125,6 +125,12 @@ class Player(Collidable):
                 self.jumping = True
                 self.springing = True
                 self.spring_sound.play()
+            if isinstance(sprite, Spring2):
+                self.jump_speed = -10
+                sprite.spring_time = 5
+                self.jumping = True
+                self.springing = True
+                self.spring_sound.play()
 
     def hit(self):
         if self.hit_timer <= 0:
@@ -515,6 +521,20 @@ class Lava(Collidable):
 
 
 class Spring(Collidable):
+    def __init__(self, pos):
+        Collidable.__init__(self, self.groups)
+        self.image = self.images[0]
+        self.rect = self.image.get_rect(topleft = pos)
+        self.spring_time = 0
+        self.on_left = False
+        self.on_right = False
+    def update(self):
+        self.image = self.images[0]
+        self.spring_time -= 1
+        if self.spring_time > 0:
+            self.image = self.images[1]
+
+class Spring2(Collidable):
     def __init__(self, pos):
         Collidable.__init__(self, self.groups)
         self.image = self.images[0]
