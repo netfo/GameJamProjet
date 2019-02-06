@@ -16,10 +16,10 @@ def Credit(screen):
     "",
     "Samuel SEBAG : Dictateur",
     "Thibaud FERNANDEZ : Chef de groupe",
-    "Quentin FOURRIER : developpeur",
-    "Andy BULOT : developpeur",
+    "Quentin FOURRIER : Developpeur",
+    "Andy BULOT : Developpeur",
     "Rowin BOISSIN : Crediteur",
-    ""])
+    "https://openclassrooms.com/fr/courses/235344-apprenez-a-programmer-en-python"])
 class Menu(object):
 
     def __init__(self, screen):
