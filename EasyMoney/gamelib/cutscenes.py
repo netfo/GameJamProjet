@@ -1,4 +1,4 @@
-import pygame, sys
+import pygame
 from pygame.locals import *
 from data import *
 

@@ -1,6 +1,4 @@
-#! /usr/bin/env python
-
-import pygame, random, math
+import pygame
 from pygame.locals import *
 
 from data import *
@@ -42,9 +40,9 @@ class Collidable(pygame.sprite.Sprite):
     def move(self, dx, dy, collide=True):
         if collide:
             if dx!=0:
-                dx, dummy = self.__move(dx,0)
+                dx  = self.__move(dx,0)
             if dy!=0:
-                dummy, dy = self.__move(0,dy)
+                 dy = self.__move(0,dy)
         else:
             self.rect.move_ip(dx, dy)
         return dx, dy
@@ -93,18 +91,14 @@ class Player(Collidable):
         self.facing = 1
         self.angle = 0
         self.dying = False
-        self.shooting = False
-        self.shoot_timer = 0
         self.still_timer = 0
         self.hp = 1
         self.hit_timer = 0
         self.springing = False
 
     def kill(self):
-        #pygame.mixer.music.stop()
         pygame.sprite.Sprite.kill(self)
         PlayerDie(self.rect.center, self.facing)
-
 
     def on_collision(self, side, sprite, group):
         self.clamp_off(sprite, side)
@@ -152,18 +146,10 @@ class Player(Collidable):
                 self.kill()
 
     def jump(self):
-        if not self.jumping and not self.shooting and self.still_timer <= 0:
+        if not self.jumping and self.still_timer <= 0:
             self.jump_speed = -13
             self.jumping = True
             self.move(0, -4)
-
-    def shoot(self):
-        if not self.shooting and not self.jumping and self.still_timer <= 0:
-            self.shooting = True
-            self.shoot_timer = 30
-
-    def stop_attacking(self):
-        self.shooting = False
 
     def update(self):
         self.frame += 1
@@ -172,31 +158,18 @@ class Player(Collidable):
         dx = 0
         key = pygame.key.get_pressed()
 
-        # if key[K_z] and not self.springing:
-        #     self.jump_accel = 0.3
-        # else:
-        #     self.jump_accel = 0.6
-
         if self.jump_speed < 8:
             self.jump_speed += self.jump_accel
         if self.jump_speed > 3:
             self.jumping = True
 
-        if self.shooting:
-            self.shoot_timer -= 1
-            id = self.shoot_timer/5
-            if self.shoot_timer % 5 == 0 and id != 0:
-                self.string = Stringer(self.rect.center, self.facing, id, self)
-            if self.shoot_timer <= 0:
-                self.shooting = False
-        else:
-            if self.still_timer <= 0:
-                if key[K_LEFT]:
-                    dx = -1
-                    self.facing = dx
-                if key[K_RIGHT]:
-                    dx = 1
-                    self.facing = dx
+        if self.still_timer <= 0:
+            if key[K_LEFT]:
+                dx = -1
+                self.facing = dx
+            if key[K_RIGHT]:
+                dx = 1
+                self.facing = dx
 
         if self.facing > 0:
             self.image = self.right_images[0]
@@ -231,14 +204,6 @@ class Platform(Collidable):
         self.rect = self.image.get_rect(topleft = pos)
         self.on_left = l
         self.on_right = r
-#
-# class Grass(Collidable):
-#     def __init__(self, pos, tile, l, r):
-#         Collidable.__init__(self, self.groups)
-#         self.image = self.images["grass-%s.png" % tile]
-#         self.rect = self.image.get_rect(topleft = pos)
-#         self.on_left = l
-#         self.on_right = r
 
 class Brick(Collidable):
     def __init__(self, pos, tile, l, r):
@@ -247,287 +212,6 @@ class Brick(Collidable):
         self.rect = self.image.get_rect(topleft = pos)
         self.on_left = l
         self.on_right = r
-#
-# class Gray(Collidable):
-#     def __init__(self, pos, tile, l, r):
-#         Collidable.__init__(self, self.groups)
-#         self.image = self.images["gray%s.png" % tile]
-#         self.rect = self.image.get_rect(topleft = pos)
-#         self.on_left = l
-#         self.on_right = r
-#
-# class Grass1(Collidable):
-#     def __init__(self, pos):
-#         Collidable.__init__(self, self.groups)
-#         self.rect = self.image.get_rect(topleft = pos)
-#         self.on_left = False
-#         self.on_right = False
-#
-# class Grass2(Collidable):
-#     def __init__(self, pos):
-#         Collidable.__init__(self, self.groups)
-#         self.rect = self.image.get_rect(topleft = pos)
-#         self.on_left = False
-#         self.on_right = False
-#
-# class GrassSprite(Collidable):
-#     def __init__(self, pos):
-#         Collidable.__init__(self, self.groups)
-#         self.rect = self.image.get_rect(topleft = pos)
-#         self.on_left = False
-#         self.on_right = False
-#
-#
-# class Spikes(Collidable):
-#     def __init__(self, pos):
-#         Collidable.__init__(self, self.groups)
-#         self.rect = self.image.get_rect(topleft = pos)
-#         self.on_left = False
-#         self.on_right = False
-#
-# class AirPlatform(Collidable):
-#     def __init__(self, pos):
-#         Collidable.__init__(self, self.groups)
-#         self.rect = self.image.get_rect(topleft = pos)
-#         self.on_left = False
-#         self.on_right = False
-#
-# class PlatformQ(Collidable):
-#     def __init__(self, pos):
-#         Collidable.__init__(self, self.groups)
-#         self.image = self.images[0]
-#         self.rect = self.image.get_rect(topleft = pos)
-#         self.frame = 0
-#     def update(self):
-#         self.frame += 1
-#         self.image = self.images[self.frame/39%3]
-#
-# class Pipe(Collidable):
-#     def __init__(self, pos):
-#         Collidable.__init__(self, self.groups)
-#         self.rect = self.image.get_rect(topleft = pos)
-#         self.on_left = False
-#         self.on_right = False
-#
-# class PipeBig(Collidable):
-#     def __init__(self, pos):
-#         Collidable.__init__(self, self.groups)
-#         self.rect = self.image.get_rect(topleft = pos)
-#         self.on_left = False
-#         self.on_right = False
-#
-# class Fence(Collidable):
-#     def __init__(self, pos):
-#         Collidable.__init__(self, self.groups)
-#         self.rect = self.image.get_rect(topleft = pos)
-#         self.on_left = False
-#         self.on_right = False
-#
-# class Tree1(Collidable):
-#     def __init__(self, pos):
-#         Collidable.__init__(self, self.groups)
-#         self.rect = self.image.get_rect(topleft = pos)
-#         self.on_left = False
-#         self.on_rignt = False
-#
-# class Tree2(Collidable):
-#     def __init__(self, pos):
-#         Collidable.__init__(self, self.groups)
-#         self.rect = self.image.get_rect(topleft = pos)
-#         self.on_left = False
-#         self.on_right = False
-#
-# class Platform_Brick(Collidable):
-#      def __init__(self, pos):
-#         Collidable.__init__(self, self.groups)
-#         self.rect = self.image.get_rect(topleft = pos)
-#         self.on_left = False
-#         self.on_right = False
-#
-#
-# class Flag(Collidable):
-#      def __init__(self, pos):
-#         Collidable.__init__(self, self.groups)
-#         self.rect = self.image.get_rect(topleft = pos)
-#         self.on_left = False
-#         self.on_right = False
-#
-# class Castle(Collidable):
-#      def __init__(self, pos):
-#         Collidable.__init__(self, self.groups)
-#         self.rect = self.image.get_rect(topleft = pos)
-#         self.on_left = False
-#         self.on_right = False
-#
-# class Castlebig(Collidable):
-#      def __init__(self, pos):
-#         Collidable.__init__(self, self.groups)
-#         self.rect = self.image.get_rect(topleft = pos)
-#         self.on_left = False
-#         self.on_right = False
-#
-# class Chain(Collidable):
-#      def __init__(self, pos):
-#         Collidable.__init__(self, self.groups)
-#         self.rect = self.image.get_rect(topleft = pos)
-#         self.on_left = False
-#         self.on_right = False
-#
-#
-# class Bush(Collidable):
-#      def __init__(self, pos):
-#         Collidable.__init__(self, self.groups)
-#         self.rect = self.image.get_rect(topleft = pos)
-#         self.on_left = False
-#         self.on_right = False
-#
-# class Bridge(Collidable):
-#      def __init__(self, pos):
-#         Collidable.__init__(self, self.groups)
-#         self.rect = self.image.get_rect(topleft = pos)
-#         self.on_left = False
-#         self.on_right = False
-#
-# class Cloud(Collidable):
-#      def __init__(self, pos):
-#         Collidable.__init__(self, self.groups)
-#         self.rect = self.image.get_rect(topleft = pos)
-#         self.oldy = self.rect.centerx
-#         self.speed = -00.1
-#      def on_collision(self, side, sprite, group):
-#          if side == TOP_SIDE:
-#              sprite.rect.right = self.rect.left
-#              sprite.jump_speed = 1
-#          if side == BOTTOM_SIDE:
-#              sprite.rect.right = self.rect.left
-#      def update(self):
-#         if self.rect.centerx & self.oldy+64:
-#             self.speed = -self.speed
-#         if self.rect.centerx & self.oldy-64:
-#             self.speed = -self.speed
-#         self.move(-1, self.speed)
-#
-# class Cloud2(Collidable):
-#      def __init__(self, pos):
-#         Collidable.__init__(self, self.groups)
-#         self.rect = self.image.get_rect(topleft = pos)
-#         self.oldy = self.rect.centerx
-#         self.speed = -00.1
-#      def on_collision(self, side, sprite, group):
-#          if side == TOP_SIDE:
-#              sprite.rect.right = self.rect.left
-#              sprite.jump_speed = 1
-#          if side == BOTTOM_SIDE:
-#              sprite.rect.right = self.rect.left
-#      def update(self):
-#         if self.rect.centerx & self.oldy+64:
-#             self.speed = -self.speed
-#         if self.rect.centerx & self.oldy-64:
-#             self.speed = -self.speed
-#         self.move(-1, self.speed)
-#
-# class Firebowser(Collidable):
-#      def __init__(self, pos):
-#         Collidable.__init__(self, self.groups)
-#         self.rect = self.image.get_rect(topleft = pos)
-#         self.oldy = self.rect.centerx
-#         self.speed = 0.5
-#      def on_collision(self, side, sprite, group):
-#          if side == TOP_SIDE:
-#              sprite.rect.right = self.rect.left
-#              sprite.jump_speed = 2
-#          if side == BOTTOM_SIDE:
-#              sprite.rect.right = self.rect.left
-#      def update(self):
-#         if self.rect.centerx & self.oldy+64:
-#             self.speed = -self.speed
-#         if self.rect.centerx & self.oldy-64:
-#             self.speed = -self.speed
-#         self.move(-2.9, self.speed)
-#
-# class MovingPlatform(Collidable):
-#     def __init__(self, pos):
-#         Collidable.__init__(self, self.groups)
-#         self.rect = self.image.get_rect(topleft = pos)
-#         self.oldy = self.rect.centery
-#         self.speed = 1
-#     def on_collision(self, side, sprite, group):
-#         if isinstance(sprite, Player):
-#             if side == TOP_SIDE:
-#                 sprite.rect.bottom = self.rect.top
-#                 sprite.jump_speed = 1
-#             if side == BOTTOM_SIDE:
-#                 sprite.rect.top = self.rect.bottom
-#                 if not sprite.jumping:
-#                     sprite.kill()
-#
-#     def update(self):
-#         if self.rect.centery > self.oldy+64:
-#             self.speed = -self.speed
-#         if self.rect.centery < self.oldy-64:
-#             self.speed = -self.speed
-#         self.move(0, self.speed)
-#     def collide_with_platforms(self, platform):
-#         if self.rect.colliderect(platform.rect):
-#             self.speed = -self.speed
-#             self.move(0, self.speed)
-#
-#
-# class MovingPlatformtwo(Collidable):
-#     def __init__(self, pos):
-#         Collidable.__init__(self, self.groups)
-#         self.rect = self.image.get_rect(topleft = pos)
-#         self.oldy = self.rect.centery
-#         self.speed = 1
-#     def on_collision(self, side, sprite, group):
-#         if isinstance(sprite, Player):
-#             if side == TOP_SIDE:
-#                 sprite.rect.bottom = self.rect.top
-#                 sprite.jump_speed = 1
-#             if side == BOTTOM_SIDE:
-#                 sprite.rect.top = self.rect.bottom
-#                 if not sprite.jumping:
-#                     sprite.kill()
-#
-#     def update(self):
-#         if self.rect.centery > self.oldy+64:
-#             self.speed = -self.speed
-#         if self.rect.centery < self.oldy-64:
-#             self.speed = -self.speed
-#         self.move(0, self.speed)
-#     def collide_with_platforms(self, platform):
-#         if self.rect.colliderect(platform.rect):
-#             self.speed = -self.speed
-#             self.move(0, self.speed)
-#
-# class Hill(Collidable):
-#      def __init__(self, pos):
-#         Collidable.__init__(self, self.groups)
-#         self.rect = self.image.get_rect(topleft = pos)
-#         self.on_left = False
-#         self.on_right = False
-#
-# class Grasstexture(Collidable):
-#     def __init__(self, pos):
-#         Collidable.__init__(self, self.groups)
-#         self.rect = self.image.get_rect(topleft = pos)
-#         self.on_left = False
-#         self.on_right = False
-#
-# class Wall(Collidable):
-#     def __init__(self, pos):
-#         Collidable.__init__(self, self.groups)
-#         self.rect = self.image.get_rect(topleft = pos)
-#         self.on_left = False
-#         self.on_right = False
-#
-# class Lava(Collidable):
-#     def __init__(self, pos):
-#         Collidable.__init__(self, self.groups)
-#         self.rect = self.image.get_rect(topleft = pos)
-#         self.on_left = False
-#         self.on_right = False
-#
 
 class Spring(Collidable):
     def __init__(self, pos):
@@ -556,355 +240,6 @@ class Spring2(Collidable):
         self.spring_time -= 1
         if self.spring_time > 0:
             self.image = self.images[1]
-#
-# class Stringer(Collidable):
-#     def __init__(self, pos, dir, id, player):
-#         Collidable.__init__(self, self.groups)
-#         self.rect = self.image.get_rect(center = pos)
-#         self.move((28-id*12)*dir, 0)
-#         self.move(54*dir, 0)
-#         self.player = player
-#         self.dir = dir
-#         self.id = id
-#         if dir < 0:
-#             self.image = pygame.transform.flip(self.image, 1, 0)
-#         self.life = 5*id
-#         self.shoot_sound = load_sound("fireball.ogg")
-#         self.shoot_sound.play()
-#     def update(self):
-#         self.rect.center = self.player.rect.center
-#         self.move((28-self.id*12)*self.dir, 0)
-#         self.move(54*self.dir, 0)
-#         self.life -= 1
-#         if not self.life % 5:
-#             self.image = pygame.transform.flip(self.image, 0, 0)
-#         if self.life <= 0:
-#             self.kill()
-#
-#
-# class Flower(Collidable):
-#     def __init__(self, pos, type="flower"):
-#         Collidable.__init__(self, self.groups)
-#         if type == "flower":
-#             self.left_images = self.left_images1
-#         self.right_images = []
-#         for i in self.left_images:
-#             self.right_images.append(pygame.transform.flip(i, 1, 0))
-#         self.images = self.right_images
-#         self.image = self.images[0]
-#         self.rect = self.image.get_rect(topleft = pos)
-#         self.frame = 1
-#         self.oldy = self.rect.centery
-#         self.speed = 1
-#         self.type = type
-#
-#     def update(self):
-#         if self.speed > 0:
-#             self.images = self.right_images
-#         if self.speed < 0:
-#             self.images = self.left_images
-#         self.frame += 1
-#         self.image = self.images[self.frame/8%2]
-#         mult = 1
-#         if self.type == "flower":
-#             mult=2
-#
-# # Flower up/down:
-#
-#     def update(self):
-#         if self.rect.centery > self.oldy-1:
-#             self.speed = -self.speed
-#         if self.rect.centery < self.oldy+110:
-#             self.speed = -self.speed
-#         self.move(0, self.speed)
-#
-#     def on_collision(self, side, sprite, group):
-#         self.clamp_off(sprite, side)
-#         if side == LEFT_SIDE:
-#             self.speed = 1
-#         if side == RIGHT_SIDE:
-#             self.speed = -1
-#         if side == BOTTOM_SIDE:
-#             if sprite.on_left:
-#                 bottomleft = Rect(0, 1, 0, 1)
-#                 bottomleft.topright = self.rect.bottomleft
-#                 if bottomleft.left < sprite.rect.left:
-#                     self.speed = 1
-#             if sprite.on_right:
-#                 bottomright = Rect(0, 1, 0, 1)
-#                 bottomright.topleft = self.rect.bottomright
-#                 if bottomright.right > sprite.rect.right:
-#                     self.speed = -1
-#
-# # for big pipes
-# class Rose(Collidable):
-#     def __init__(self, pos, type="rose"):
-#         Collidable.__init__(self, self.groups)
-#         if type == "rose":
-#             self.left_images = self.left_images1
-#         self.right_images = []
-#         self.rect = self.image.get_rect(topleft = pos)
-#         self.frame = 1
-#         self.oldy = self.rect.centery
-#         self.speed = 1
-#         self.type = type
-#
-#     def update(self):
-#         if self.speed > 0:
-#             self.images = self.right_images
-#         if self.speed < 0:
-#             self.images = self.left_images
-#         self.frame += 1
-#         self.image = self.images[self.frame/8%2]
-#         mult = 1
-#         if self.type == "rose":
-#             mult=2
-#
-#
-#
-#
-#     def update(self):
-#         if self.rect.centery > self.oldy-2:
-#             self.speed = -self.speed
-#         if self.rect.centery < self.oldy+150:
-#             self.speed = -self.speed
-#         self.move(0, self.speed)
-#
-#     def on_collision(self, side, sprite, group):
-#         self.clamp_off(sprite, side)
-#         if side == LEFT_SIDE:
-#             self.speed = 1
-#         if side == RIGHT_SIDE:
-#             self.speed = -1
-#         if side == BOTTOM_SIDE:
-#             if sprite.on_left:
-#                 bottomleft = Rect(0, 1, 0, 1)
-#                 bottomleft.topright = self.rect.bottomleft
-#                 if bottomleft.left < sprite.rect.left:
-#                     self.speed = 1
-#             if sprite.on_right:
-#                 bottomright = Rect(0, 1, 0, 1)
-#                 bottomright.topleft = self.rect.bottomright
-#                 if bottomright.right > sprite.rect.right:
-#                     self.speed = -1
-#
-#
-# class Baddie(Collidable):                            # I am almost sure there something wrong here |
-#     def __init__(self, pos, type="monster"):                                                     # V
-#         Collidable.__init__(self, self.groups)
-#         if type == "monster":
-#             self.left_images = self.left_images1
-#         elif type == "slub":
-#             self.left_images = self.left_images2
-#         elif type == "monsterred":
-#             self.left_images = self.left_images4
-#         self.right_images = []
-#         for i in self.left_images:
-#             self.right_images.append(pygame.transform.flip(i, 1, 0))
-#         self.images = self.right_images
-#         self.image = self.images[0]
-#         self.rect = self.image.get_rect(topleft = pos)
-#         self.frame = 0
-#         self.speed = 2
-#         self.type = type
-#
-#     def update(self):
-#         if self.speed > 0:
-#             self.images = self.right_images
-#         if self.speed < 0:
-#             self.images = self.left_images
-#         self.frame += 1
-#         self.image = self.images[self.frame/8%2]
-#         mult = 1
-#         if self.type == "slub":
-#             mult=2
-#         if self.type == "squidge":
-#             self.image = self.images[self.frame/12%2]
-#         else:
-#             self.move(self.speed*mult, 1)
-#
-#     def on_collision(self, side, sprite, group):
-#         self.clamp_off(sprite, side)
-#         if side == LEFT_SIDE:
-#             self.speed = 1
-#         if side == RIGHT_SIDE:
-#             self.speed = -1
-#         if side == BOTTOM_SIDE:
-#             if sprite.on_left:
-#                 bottomleft = Rect(0, 0, 1, 1)
-#                 bottomleft.topright = self.rect.bottomleft
-#                 if bottomleft.left < sprite.rect.left:
-#                     self.speed = 1
-#             if sprite.on_right:
-#                 bottomright = Rect(0, 0, 1, 1)
-#                 bottomright.topleft = self.rect.bottomright
-#                 if bottomright.right > sprite.rect.right:
-#                     self.speed = -1
-#
-# #____________________________________________________________________________
-#
-# class Cannon(Collidable):
-#     def __init__(self, pos, type="cannon"):
-#         Collidable.__init__(self, self.groups)
-#         if type == "cannon":
-#             self.left_images = self.left_images1
-#         elif type == "cannonbig":
-#             self.left_images = self.left_images2
-#         elif type == "smallcannon":
-#             self.left_images = self.left_images4
-#         self.right_images = []
-#         for i in self.left_images:
-#             self.right_images.append(pygame.transform.flip(i, 1, 0))
-#         self.images = self.right_images
-#         self.image = self.images[0]
-#         self.rect = self.image.get_rect(topleft = pos)
-#         self.frame = 0
-#         self.speed = 1
-#         self.type = type
-#
-#     def update(self):
-#         if self.speed > 0:
-#             self.images = self.right_images
-#         if self.speed < 0:
-#             self.images = self.left_images
-#         self.frame += 1
-#         self.image = self.images[self.frame/2%2]
-#         mult = 1
-#         if self.type == "cannon":
-#             self.image = self.images[self.frame/12%2]
-#         elif self.type == "cannonbig":
-#             self.image = self.images[self.frame/12%2]
-#         elif self.type == "smallcannon":
-#             self.image = self.images[self.frame/12%2]
-#         else:
-#             self.move(self.speed*mult, 1)
-#
-#     def on_collision(self, side, sprite, group):
-#         self.clamp_off(sprite, side)
-#         if side == LEFT_SIDE:
-#             self.speed = 1
-#         if side == RIGHT_SIDE:
-#             self.speed = -1
-#         if side == BOTTOM_SIDE:
-#             if sprite.on_left:
-#                 bottomleft = Rect(0, 0, 1, 1)
-#                 bottomleft.topright = self.rect.bottomleft
-#                 if bottomleft.left < sprite.rect.left:
-#                     self.speed = 1
-#             if sprite.on_right:
-#                 bottomright = Rect(0, 0, 1, 1)
-#                 bottomright.topleft = self.rect.bottomright
-#                 if bottomright.right > sprite.rect.right:
-#                     self.speed = -1
-#
-# class CannonShot(Collidable):
-#     def __init__(self, pos):
-#         Collidable.__init__(self, self.groups)
-#         self.rect = self.image.get_rect(bottomleft = pos)
-#         self.x,self.y=self.rect.topleft
-#         x = self.x - self.player.rect.centerx
-#         angle = math.atan(x)
-#         self.angle = int(265.0 - (angle * 30) / math.pi)
-#     def update(self):
-#         self.rect.center = (self.x, self.y)
-#         speed = 2.5
-#         self.x += math.sin(math.radians(self.angle))*speed
-#
-# class CannonShotsmall(Collidable):
-#     def __init__(self, pos):
-#         Collidable.__init__(self, self.groups)
-#         self.rect = self.image.get_rect(center = pos)
-#         self.x,self.y=self.rect.center
-#         x = self.x - self.player.rect.centerx
-#         angle = math.atan(x)
-#         self.angle = int(265.0 - (angle * 30) / math.pi)
-#     def update(self):
-#         self.rect.center = (self.x, self.y)
-#         speed = 2.5
-#         self.x += math.sin(math.radians(self.angle))*speed
-#
-# class CannonShotbig(Collidable):
-#     def __init__(self, pos):
-#         Collidable.__init__(self, self.groups)
-#         self.rect = self.image.get_rect(bottomleft = pos)
-#         self.x,self.y=self.rect.topleft
-#         x = self.x - self.player.rect.centerx
-#         angle = math.atan(x)
-#         self.angle = int(265.0 - (angle * 30) / math.pi)
-#     def update(self):
-#         self.rect.center = (self.x, self.y)
-#         speed = 2.5
-#         self.x += math.sin(math.radians(self.angle))*speed
-#
-#
-#
-# class BaddieBoom(Collidable):
-#     def __init__(self, pos, facing, type):
-#         Collidable.__init__(self, self.groups)
-#         if type == "monster":
-#             self.left_images = self.left_images1
-#         elif type == "slub":
-#             self.left_images = self.left_images2
-#         elif type == "monsterred":
-#             self.left_images = self.left_images4
-#         self.right_images = []
-#         for i in self.left_images:
-#             self.right_images.append(pygame.transform.flip(i, 1, 0))
-#         self.images = self.right_images
-#         self.image = self.images[0]
-#         self.rect = self.image.get_rect(center = pos)
-#         self.facing = facing
-#         self.timer = 0
-#
-#
-#     def update(self):
-#         if self.facing > 0:
-#             self.images = self.right_images
-#         else:
-#             self.images = self.left_images
-#         self.timer += 1
-#         if self.timer <= 25:
-#             self.image = self.images[self.timer/4%2]
-#         elif self.timer < 36:
-#             self.image = self.images[self.timer/4%2]
-#         else:
-#             self.kill()
-#
-# class BaddieShot(Collidable):
-#     def __init__(self, pos):
-#         Collidable.__init__(self, self.groups)
-#         self.rect = self.image.get_rect(center = pos)
-#         self.x,self.y=self.rect.center
-#         x = self.x - self.player.rect.centerx
-#         y = self.y - self.player.rect.centery
-#         angle = math.atan2(y, x)
-#         self.angle = int(270.0 - (angle * 180) / math.pi)
-#     def update(self):
-#         self.rect.center = (self.x, self.y)
-#         speed = 3
-#         self.x += math.sin(math.radians(self.angle))*speed
-#         self.y += math.cos(math.radians(self.angle))*speed
-#
-# class MushroomGreen(Collidable):
-#     def __init__(self, pos):
-#         Collidable.__init__(self, self.groups)
-#         self.rect = self.image.get_rect(topleft = pos)
-#         self.on_left = False
-#         self.on_right = False
-#
-# class MushroomGreendie(Collidable):
-#     def __init__(self, pos):
-#         Collidable.__init__(self, self.groups)
-#         self.image = self.images[0]
-#         self.rect = self.image.get_rect(center = pos)
-#         self.timer = 0
-#
-#     def update(self):
-#         self.timer += 1
-#         if self.timer < 12:
-#             self.image = self.images[self.timer/4%3]
-#         else:
-#             self.kill()
 
 class Coin(Collidable):
     def __init__(self, pos):
@@ -941,8 +276,6 @@ class PlayerDie(Collidable):
         self.rect = self.image.get_rect(center = pos)
         self.facing = facing
         self.timer = 0
-        self.sound1 = load_sound("death.ogg")
-        self.sound1.play()
 
     def update(self):
         if self.facing > 0:
@@ -958,100 +291,3 @@ class PlayerDie(Collidable):
             self.image = self.images[self.timer/4%3]
         else:
             self.kill()
-#
-# class Bomb(Collidable):
-#     def __init__(self, pos):
-#         Collidable.__init__(self, self.groups)
-#         self.rect = self.image.get_rect(topleft = pos)
-#         self.explode_time = 2000
-#         self.on_left = False
-#         self.on_right = False
-#     def update(self):
-#         self.explode_time -= 0.5
-#
-#
-# class Explosion(Collidable):
-#     def __init__(self, pos):
-#         Collidable.__init__(self, self.groups)
-#         self.image = pygame.Surface((240, 240))
-#         self.image.set_colorkey((0, 0, 0), RLEACCEL)
-#         self.rect = self.image.get_rect(center = pos)
-#         self.frame = 0
-#         self.radius = 0
-#         self.alpha = 255
-#     def update(self):
-#         if self.radius >= 120:
-#             self.alpha -= 20
-#             if self.alpha <= 0:
-#                 self.kill()
-#
-# class Boss(Collidable):
-#     def __init__(self, pos):
-#         Collidable.__init__(self, self.groups)
-#         self.right_images = []
-#         for i in self.left_images:
-#             self.right_images.append(pygame.transform.flip(i, 1, 0))
-#         self.images = self.right_images
-#         self.image = self.images[0]
-#         self.rect = self.image.get_rect(bottomleft = pos)
-#         self.frame = 0
-#         self.speed = -1
-#         self.hit_timer = 0
-#         self.hp = 5
-#         self.die_time = 0
-#         self.dead = False
-#
-#     def kill(self):
-#         if self.die_time <= 0:
-#             self.image = pygame.Surface((1, 1))
-#             self.image.set_alpha(0)
-#             self.dead = True
-#             stop_music()
-#             self.die_time = 200
-#
-#     def hit(self):
-#         if self.hit_timer <= 0 and self.hp > 0:
-#             self.hit_timer = 50
-#             self.hp -= 1
-#             if self.hp <= 0:
-#                 self.kill()
-#
-#     def update(self):
-#         self.die_time -= 1
-#         self.hit_timer -= 1
-#         if not self.dead:
-#             if self.speed > 0:
-#                 self.images = self.right_images
-#             if self.speed < 0:
-#                 self.images = self.left_images
-#             self.frame += 1
-#             self.image = self.images[self.frame/8%2]
-#             if self.hit_timer > 0:
-#                 self.image = self.images[self.frame/4%2 + 1]
-#         mult = 1
-#         if self.die_time > 0:
-#             mult = 0
-#             if not random.randrange(2):
-#                 pos = [0, 0]
-#                 pos[0] = random.randrange(self.rect.left, self.rect.right)
-#                 pos[1] = random.randrange(self.rect.top, self.rect.bottom)
-#                 Explosion(pos)
-#         self.move(self.speed*mult, 1)
-#
-#     def on_collision(self, side, sprite, group):
-#         self.clamp_off(sprite, side)
-#         if side == LEFT_SIDE:
-#             self.speed = 1
-#         if side == RIGHT_SIDE:
-#             self.speed = -1
-#         if side == BOTTOM_SIDE:
-#             if sprite.on_left:
-#                 bottomleft = Rect(0, 0, 1, 1)
-#                 bottomleft.topright = self.rect.bottomleft
-#                 if bottomleft.left < sprite.rect.left:
-#                     self.speed = 1
-#             if sprite.on_right:
-#                 bottomright = Rect(0, 0, 1, 1)
-#                 bottomright.topleft = self.rect.bottomright
-#                 if bottomright.right > sprite.rect.right:
-#                     self.speed = -1

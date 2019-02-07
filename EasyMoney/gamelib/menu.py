@@ -1,6 +1,4 @@
-#! /usr/bin/env python
-
-import pygame, sys
+import pygame
 from pygame.locals import *
 
 from game import *
@@ -10,7 +8,7 @@ from cutscenes import *
 
 def RunGame(screen):
     Game(screen)
-    # play_music("title.ogg", 0.75)
+
 def Credit(screen):
     cutscene(screen, ["Credits",
     "",
