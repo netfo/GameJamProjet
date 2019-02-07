@@ -127,7 +127,7 @@ class Game(object):
                     self.score += 50
 
             if self.player.alive():
-                self.time -= 0.400
+                self.time -= 0.016
             if self.time <= 0:
                 self.player.hit()
 
@@ -168,4 +168,4 @@ class Game(object):
         ren = self.font.render("Score: %05d" % self.score, 1, (255, 255, 255))
         self.screen.blit(ren, (624-ren.get_width(), 16))
         ren1 = self.font.render("Time: %d" % self.time, 1, (255, 255, 255))
-        self.screen.blit(ren1, (485, 60))
+        self.screen.blit(ren1, (624-ren.get_width(), 60))
