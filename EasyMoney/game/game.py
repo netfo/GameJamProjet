@@ -1,4 +1,4 @@
-import sys, pygame
+import sys, pygame, pickle, os
 from pygame.locals import *
 
 from cutscenes import *
@@ -8,6 +8,35 @@ from level import *
 
 def RelRect(actor, camera):
     return Rect(actor.rect.x-camera.rect.x, actor.rect.y-camera.rect.y, actor.rect.w, actor.rect.h)
+
+def setup_scores():
+    global high_scores
+    high_scores = {}
+
+    if os.path.isfile('highscores.pkl'):
+        with open("highscores.pkl", "rb") as h:
+            high_scores = pickle.load(h)
+
+def save_scores(name, score):
+    new_score = (name, score)
+
+    if new_score[0] in high_scores:
+        if new_score[1] > high_scores[new_score[0]]:
+            high_scores[new_score[0]] = new_score[1]
+    else:
+        high_scores[new_score[0]] = new_score[1]
+
+    with open("highscores.pkl", "wb") as out:
+        pickle.dump(high_scores, out)
+
+def print_scores():
+
+    a = 0
+    for name, score in high_scores.items():
+        if a < score:
+            a = score
+
+    return a
 
 class Camera(object):
     def __init__(self, player, width):
@@ -97,7 +126,9 @@ class Game(object):
         pygame.time.wait(2500)
 
     def score_screen(self):
-        cutscene(self.screen, ["Your score: %05d" % self.score])
+        setup_scores()
+        save_scores("test1",self.score)
+        cutscene(self.screen, ["Ton score: %05d" % self.score,"Ton meilleur score : %s" % str(print_scores())])
         self.end()
 
     def main_loop(self):
@@ -161,11 +192,15 @@ class Game(object):
                 return
 
     def draw_stats(self):
-
+        setup_scores()
+        save_scores("test1", self.score)
         lives = self.lives
         if lives < 0:
             lives = 0
         ren = self.font.render("Score: %05d" % self.score, 1, (255, 255, 255))
         self.screen.blit(ren, (624-ren.get_width(), 16))
-        ren1 = self.font.render("Time: %d" % self.time, 1, (255, 255, 255))
-        self.screen.blit(ren1, (624-ren.get_width(), 60))
+        self.highscore = print_scores()
+        ren1 = self.font.render("Highscore : %s" % str(print_scores()), 1,(255,255,255))
+        self.screen.blit(ren1, (624-ren1.get_width(), 38))
+        ren2 = self.font.render("Time: %d" % self.time, 1, (255, 255, 255))
+        self.screen.blit(ren2, (624-ren2.get_width(), 60))
