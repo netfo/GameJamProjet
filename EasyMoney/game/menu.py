@@ -2,7 +2,7 @@ import pygame
 from pygame.locals import *
 
 from game import *
-from ezmenu import *
+from creamenu import *
 from data import *
 from cutscenes import *
 
@@ -34,7 +34,7 @@ class Menu(object):
 
     def __init__(self, screen):
         self.screen = screen
-        self.menu = EzMenu(["Jouer", lambda: RunGame(screen)],["Credits", lambda: Credit(screen)],["Sources", lambda: source(screen)],["Quitter", sys.exit],)
+        self.menu = CreaMenu(["Jouer", lambda: RunGame(screen)],["Credits", lambda: Credit(screen)],["Sources", lambda: source(screen)],["Quitter", sys.exit],)
 
         # couleur par defaut
         self.menu.set_normal_color((255, 255, 255))

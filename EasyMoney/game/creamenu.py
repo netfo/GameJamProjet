@@ -1,6 +1,6 @@
 import pygame
 
-class EzMenu:
+class CreaMenu:
 
     def __init__(self, *options):
 
