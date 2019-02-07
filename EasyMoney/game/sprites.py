@@ -175,10 +175,10 @@ class Player(Collidable):
             self.image = self.right_images[0]
         if self.facing < 0:
             self.image = self.left_images[0]
-        if dx > 0:
-            self.image = self.right_images[self.frame/6%5]
-        if dx < 0:
-            self.image = self.left_images[self.frame/6%5]
+        # if dx > 0:
+        #     self.image = self.right_images[self.frame/6%5]
+        # if dx < 0:
+        #     self.image = self.left_images[self.frame/6%5]
         if self.facing > 0 and self.jumping:
             self.image = self.right_images[5]
         if self.facing < 0 and self.jumping:
@@ -247,9 +247,9 @@ class Coin(Collidable):
         self.image = self.images[0]
         self.rect = self.image.get_rect(topleft = pos)
         self.frame = 0
-    def update(self):
-        self.frame += 1
-        self.image = self.images[self.frame/6%4]
+    # def update(self):
+    #     self.frame += 1
+    #     self.image = self.images[self.frame/6%4]
 
 class CoinDie(Collidable):
     def __init__(self, pos):
@@ -257,13 +257,13 @@ class CoinDie(Collidable):
         self.image = self.images[0]
         self.rect = self.image.get_rect(center = pos)
         self.timer = 0
-
-    def update(self):
-        self.timer += 1
-        if self.timer < 12:
-            self.image = self.images[self.timer/4%3]
-        else:
-            self.kill()
+        self.kill()
+    # def update(self):
+    #     self.timer += 1
+    #     if self.timer < 12:
+    #         self.image = self.images[self.timer/4%3]
+    #     else:
+    #         self.kill()
 
 class PlayerDie(Collidable):
     def __init__(self, pos, facing):
