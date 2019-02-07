@@ -118,13 +118,13 @@ class Player(Collidable):
             self.jumping = False
             self.springing = False
             if isinstance(sprite, Spring):
-                self.jump_speed = -13
+                self.jump_speed = -20
                 sprite.spring_time = 5
                 self.jumping = True
                 self.springing = True
                 self.spring_sound.play()
             if isinstance(sprite, Spring2):
-                self.jump_speed = -8
+                self.jump_speed = -13
                 sprite.spring_time = 5
                 self.jumping = True
                 self.springing = True
