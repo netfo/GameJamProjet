@@ -55,7 +55,7 @@ class Game(object):
         self.springs = pygame.sprite.OrderedUpdates()
         # self.platformqs = pygame.sprite.OrderedUpdates()
 
-        Player.right_images = [load_image("mario1.png"), load_image("mario2.png"), load_image("mario3.png"), load_image("mario4.png"), load_image("mario1.png"), load_image("mario5.png")]
+        Player.right_images = [load_image("perso1.png"), load_image("perso2.png"), load_image("perso3.png"), load_image("perso4.png"), load_image("perso1.png"), load_image("perso5.png")]
         Platform.images = {"platform-top.png": load_image("platform-top.png"), "platform-middle.png": load_image("platform-top.png")}
         # Grass.images = {"grass-1.png": load_image("grass-1.png"), "grass-middle.png": load_image("grass-middle.png")}
         # Gray.images = {"gray1.png": load_image("gray1.png"), "gray2.png": load_image("gray2.png")}

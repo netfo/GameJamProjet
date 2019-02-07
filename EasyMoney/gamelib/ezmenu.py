@@ -11,7 +11,7 @@ class EzMenu:
         self.font = pygame.font.Font(None, 32)
         self.option = 0
         self.width = 1
-        # couleur de base 
+        # couleur de base
         self.color = [0, 0, 0]
         # couleur du focus
         self.hcolor = [255, 0, 0]
