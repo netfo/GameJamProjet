@@ -9,7 +9,7 @@ from sprites import *
 class Level:
 
     def __init__(self, lvl=1):
-        self.level = pygame.image.load(filepath(("lvl%d.png" % lvl))).convert()
+        self.level = pygame.image.load(filepath("lvl.png")).convert()
         self.x = 0
         self.y = 0
         for y in range(self.level.get_height()):

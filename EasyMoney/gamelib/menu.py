@@ -36,7 +36,7 @@ class Menu(object):
 
     def __init__(self, screen):
         self.screen = screen
-        self.menu = EzMenu(["Jouer", lambda: RunGame(screen)],["Credits", lambda: Credit(screen)],["Source", lambda: source(screen)],["Quitter", sys.exit],)
+        self.menu = EzMenu(["Jouer", lambda: RunGame(screen)],["Credits", lambda: Credit(screen)],["Sources", lambda: source(screen)],["Quitter", sys.exit],)
 
         # couleur par defaut
         self.menu.set_normal_color((255, 255, 255))
@@ -59,9 +59,9 @@ class Menu(object):
                     return
 
             self.screen.blit(self.bg, (0, 0))
-            ren = self.font2.render("ROAD to SURVIVE ", 1, (255, 255, 255))
+            ren = self.font2.render("Easy Money ", 1, (255, 255, 255))
             self.screen.blit(ren, (320-ren.get_width()/2, 180))
-            ren = self.font2.render("Python", 1, (255, 255, 255))
+            ren = self.font2.render("Python Pygame", 1, (255, 255, 255))
             self.screen.blit(ren, (320-ren.get_width()/2, 235))
             self.menu.draw(self.screen)
             pygame.display.flip()
