@@ -3,7 +3,7 @@ from pygame.locals import *
 from data import *
 
 def cutscene(screen, text):
-    font = pygame.font.Font(filepath("fonts/font.ttf"), 16)
+    font = pygame.font.SysFont("Carlito", 16)
     black = pygame.Surface((640, 480))
     black.fill((0, 0, 0))
     alpha = 255
