@@ -98,9 +98,6 @@ class Player(Collidable):
         self.still_timer = 0
         self.hp = 1
         self.hit_timer = 0
-        self.jump_sound = load_sound("jump.ogg")
-        self.hit_sound = load_sound("stomp.ogg")
-        self.spring_sound = load_sound("jump2.ogg")
         self.springing = False
 
     def kill(self):
@@ -122,34 +119,30 @@ class Player(Collidable):
                 sprite.spring_time = 5
                 self.jumping = True
                 self.springing = True
-                self.spring_sound.play()
             if isinstance(sprite, Spring2):
                 self.jump_speed = -13
                 sprite.spring_time = 5
                 self.jumping = True
                 self.springing = True
-                self.spring_sound.play()
             if isinstance(sprite, Brick):
                 key = pygame.key.get_pressed()
                 self.jump_speed = -5
                 sprite.spring_time = 5
                 self.jumping = True
                 self.springing = True
-                if key[K_z]:
+                if key[K_z] or key[K_UP]:
                     self.jump_accel = 0.05
                 else:
                     self.jump_accel = 0.4
-                self.spring_sound.play()
             if isinstance(sprite, Platform):
                 key = pygame.key.get_pressed()
                 sprite.spring_time = 5
                 self.jumping = False
                 self.springing = False
-                if key[K_z]:
+                if key[K_z] or key[K_UP]:
                     self.jump_accel = 0.3
                 else:
                     self.jump_accel = 0.6
-                self.spring_sound.play()
 
     def hit(self):
         if self.hit_timer <= 0:
@@ -157,14 +150,11 @@ class Player(Collidable):
             self.hp -= 1
             if self.hp <= 0:
                 self.kill()
-            else:
-                self.hit_sound.play()
 
     def jump(self):
         if not self.jumping and not self.shooting and self.still_timer <= 0:
             self.jump_speed = -13
             self.jumping = True
-            self.jump_sound.play()
             self.move(0, -4)
 
     def shoot(self):

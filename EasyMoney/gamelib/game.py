@@ -64,7 +64,7 @@ class Game(object):
         # MovingPlatformtwo.image = load_image("moving-platformlong.png")
         Coin.images = [load_image("coin%s.png" % i) for i in range(1, 5)]
         CoinDie.images = [load_image("exp2-%d.png" % i) for i in range(1, 4)]
-        PlayerDie.right_images = [load_image("mariodie.png"), load_image("exp2-1.png"), load_image("exp2-2.png"), load_image("exp2-3.png")]
+        PlayerDie.right_images = [load_image("persodie.png"), load_image("exp2-1.png"), load_image("exp2-2.png"), load_image("exp2-3.png")]
         Spring.images = [load_image("spring1.png"), load_image("spring2.png")]
         Spring2.images = [load_image("spring3.png"), load_image("spring4.png")]
         # AirPlatform.image = load_image("platform-air.png")
@@ -101,21 +101,17 @@ class Game(object):
             self.lvl = 1
         self.player = Player((0, 0))
         self.clock = pygame.time.Clock()
-        self.bg = load_image("background-2.png")
+        self.bg = load_image("background.png")
         self.level = Level(self.lvl)
         self.camera = Camera(self.player, self.level.get_size()[0])
-        self.font = pygame.font.Font(filepath("fonts/font.ttf"), 16)
-        self.coin_sound = load_sound("coin.ogg")
-        self.up_sound = load_sound("1up.ogg")
+        self.font = pygame.font.SysFont("Carlito", 16)
         self.time = 180
         self.running = 1
-        self.music = "maintheme.ogg"
         if not continuing:
             cutscene(self.screen,
                      ['Note: Utilisez les fleches',
                       'directionnelles pour vous deplacez',
                       'Appuyez sur Z pour sauter'])
-            stop_music()
 
         self.intro_level()
         self.main_loop()
@@ -124,12 +120,10 @@ class Game(object):
         self.running = 0
 
     def intro_level(self):
-        stop_music()
         self.screen.fill((0, 0, 0))
         self.draw_stats()
         pygame.display.flip()
         pygame.time.wait(2500)
-        play_music(self.music)
 
     # def redo_level(self):
     #     self.booming = False
@@ -158,8 +152,6 @@ class Game(object):
     #     pygame.display.flip()
 
     def score_screen(self):
-        stop_music()
-        play_music("gameover.ogg")
         cutscene(self.screen, ["Your score: %05d" % self.score])
         self.end()
 
@@ -197,7 +189,6 @@ class Game(object):
             for c in self.coins:
                 if self.player.rect.colliderect(c.rect):
                     c.kill()
-                    self.coin_sound.play()
                     CoinDie(c.rect.center)
                     self.score += 50
 
@@ -213,17 +204,17 @@ class Game(object):
             #         if p != p2:
             #             p.collide_with_platforms(p2)
 
-            if self.player.rect.right > self.camera.world.w:
-                if not self.bombs and self.lvl < 30:
-                    self.next_level()
-                else:
-                    self.player.rect.right = self.camera.world.w
-
-            if self.player.rect.right > self.camera.world.w:
-                if not self.bombs and self.lvl < 30:
-                    self.next_level()
-                else:
-                    self.player.rect.right = self.camera.world.w
+            # if self.player.rect.right > self.camera.world.w:
+            #     if not self.bombs and self.lvl < 30:
+            #         self.next_level()
+            #     else:
+            #         self.player.rect.right = self.camera.world.w
+            #
+            # if self.player.rect.right > self.camera.world.w:
+            #     if not self.bombs and self.lvl < 30:
+            #         self.next_level()
+            #     else:
+            #         self.player.rect.right = self.camera.world.w
 
             # if self.player.rect.right > self.camera.world.w:
             #     self.next_level()
